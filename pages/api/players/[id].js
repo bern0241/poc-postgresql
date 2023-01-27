@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   }
   if (req.method === "DELETE") {
     try {
-      await knex("players").where("id", req.body.id).del();
+      await knex("players").where("id", req.query.id).del();
       res.status(200).json({ message: "Player deleted" });
     } catch (error) {
       res.status(400).json({ error: "Player not found!" });
