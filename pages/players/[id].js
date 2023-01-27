@@ -5,12 +5,11 @@ function index() {
   const [player, setPlayer] = useState({});
   const router = useRouter();
   const { id } = router.query;
+
   const getPlayer = async () => {
     if (!id) return;
     try {
-      await fetch(`api/players/${id}`, {
-        id: id,
-      }).then(async (resp) => {
+      await fetch(`/api/players/${id}`).then(async (resp) => {
         setPlayer(await resp.json());
       });
     } catch (err) {
