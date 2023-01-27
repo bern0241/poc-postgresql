@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 function index() {
+  const [players, setPlayers] = useState([]);
   const getPlayers = async () => {
     try {
       await fetch("api/players").then(async (resp) => {
-        console.log(await resp.json());
+        setPlayers(await resp.json());
       });
     } catch (err) {
       console.log(err);
@@ -14,7 +16,18 @@ function index() {
   useEffect(() => {
     getPlayers();
   }, []);
-  return <div>players index</div>;
+  return (
+    <>
+      <div>**** PLAYERS ****</div>
+      {players.map((player) => (
+        <div>
+          <Link href={`/players/${player.id}`}>
+            {player.first_name} {player.last_name}
+          </Link>
+        </div>
+      ))}
+    </>
+  );
 }
 
 export default index;
