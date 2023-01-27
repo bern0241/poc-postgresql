@@ -10,7 +10,7 @@ export default async function handler(req, res) {
           res.status(200).json(players);
         });
     } catch (error) {
-      res.status(400).json({ error: "Team not found!" });
+      res.status(400).json({ error: "Player not found!" });
     }
   }
   if (req.method === "POST") {
