@@ -2,7 +2,7 @@ import React from 'react'
 
 const AddTeam = () => {
   return (
-    <div class="">
+    <div class="my-4">
     <form class="">
     <div class="p-5 gap-3 grid justify-center grid-cols-2 lg:grid-cols-6 mx-auto max-w-[80em]">
 
