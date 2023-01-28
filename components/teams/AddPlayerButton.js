@@ -1,11 +1,29 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import 'flowbite'; 
 import Image from 'next/image';
 
 const AddPlayerButton = () => {
+
+    const [players, setPlayers] = useState([]);
+
+    useEffect(() => {
+        getPlayers();
+    }, [])
+
+    async function getPlayers() {
+        try {
+            const resp = await fetch('http://localhost:3000/api/players2');
+            let data = await resp.json();
+            console.log(data);
+            setPlayers(data);
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
   return (
     <>
-        <button id="dropdownUsersButton" data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom" class="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" type="button">Add Player <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+        <button id="dropdownUsersButton" data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom" class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Add Player <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
         
         <div id="dropdownUsers" class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-gray-700">
             
@@ -22,20 +40,15 @@ const AddPlayerButton = () => {
 
 
         <ul class="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton">
+        {players && players.map((player) => (
             <li>
             <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 <Image width={500}
                     height={500} class="w-6 h-6 mr-2 rounded-full" src="/../public/images/blue-shirt.jpg" alt="Player shirt" />
-                Justin Bernard
+                {player.first_name} {player.last_name}
             </a>
             </li>
-            <li>
-            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-            <Image width={500}
-                    height={500} class="w-6 h-6 mr-2 rounded-full" src="/../public/images/pink-shirt.jpg" alt="Player shirt" />
-                Linda Caruso
-            </a>
-            </li>
+        ))}    
             
         </ul>
         <a href="#" class="flex items-center p-3 text-sm font-medium text-blue-600 border-t border-gray-200 rounded-b-lg bg-gray-50 dark:border-gray-600 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-blue-500 hover:underline">
@@ -48,3 +61,13 @@ const AddPlayerButton = () => {
 }
 
 export default AddPlayerButton
+
+
+// export const getStaticProps = async () => {
+//     const resp = await fetch('http://localhost:3000/api/players2');
+//     let data = await resp.json();
+  
+//     return {
+//       props: { players: data }
+//     }
+//   }

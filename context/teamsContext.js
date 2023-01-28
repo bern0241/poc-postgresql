@@ -8,7 +8,7 @@ function TeamsContextProvider(props) {
     useEffect(() => {
         (async () => {
             try {
-                const resp = await fetch('api/teams');
+                const resp = await fetch('http://localhost:3000/api/teams');
                 const data = await resp.json();
                 setTeams(data);
             } catch (err) {
