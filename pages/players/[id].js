@@ -16,18 +16,27 @@ function index() {
       console.warn(err);
     }
   };
-  const updatePlayer = async () => {
+  /**
+   * Pass player data as a param to update the player
+   * @example updatePlayer({
+   * first_name: 'John',
+   * last_name: 'Doe,
+   * email: 'john@mail.com'
+   * })
+   */
+  const updatePlayer = async (
+    // Placeholder if there is no data
+    playerData = {
+      first_name: `Joe`,
+      last_name: `Doe`,
+      email: `${(Math.random() * 100).toFixed(0)}@email.com`,
+    }
+  ) => {
     if (!id) return;
     try {
       await fetch(`/api/players/${id}`, {
         method: "PATCH",
-        // Update the current player with random values for testing
-        // We should be using data from a form instead
-        body: JSON.stringify({
-          first_name: `${(Math.random() * 10000).toFixed(0)}`,
-          last_name: `${(Math.random() * 10000).toFixed(0)}`,
-          email: `${(Math.random() * 100).toFixed(0)}@email.com`,
-        }),
+        body: JSON.stringify(playerData),
       }).then((resp) => {
         if (resp.ok) getPlayer();
       });
@@ -58,7 +67,7 @@ function index() {
         </p>
         <p>{player.email}</p>
         <button onClick={deletePlayer}>Delete</button>
-        <button onClick={updatePlayer}>Update</button>
+        <button onClick={() => updatePlayer()}>Update</button>
       </div>
     </>
   );

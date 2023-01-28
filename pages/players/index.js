@@ -12,17 +12,27 @@ function index() {
       console.log(err);
     }
   };
-  const addPlayer = async () => {
+  /**
+   * Pass player data as a param to add the player
+   * @example addPlayer({
+   * first_name: 'John',
+   * last_name: 'Doe,
+   * email: 'john@mail.com'
+   * })
+   */
+  const addPlayer = async (
+    // Placeholder if there is no data
+    playerData = {
+      first_name: `Joe`,
+      last_name: `Doe`,
+      email: `${(Math.random() * 100).toFixed(0)}@email.com`,
+    }
+  ) => {
+    console.log(playerData);
     try {
       await fetch(`api/players`, {
         method: "POST",
-        // Placeholder object for now
-        // We should be using data from a form instead
-        body: JSON.stringify({
-          first_name: `Joe`,
-          last_name: `Doe`,
-          email: `${(Math.random() * 100).toFixed(0)}@email.com`,
-        }),
+        body: JSON.stringify(playerData),
       })
         .then((resp) => {
           console.log(resp);
@@ -40,7 +50,12 @@ function index() {
   return (
     <>
       <div>**** PLAYERS ****</div>
-      <button onClick={addPlayer}>***Add player</button>
+      <button
+        onClick={() => {
+          addPlayer();
+        }}>
+        ***Add player
+      </button>
       {players.map((player) => (
         <div>
           <Link href={`/players/${player.id}`}>
