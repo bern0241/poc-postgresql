@@ -8,21 +8,21 @@ const knex = require('knex')({
       database: 'postgres'
     },
     pool: { min: 0, max: 7 }
-  })
+})
 
 export default async function handler(req, res) {
     
     if (req.method === 'GET') {
         try {
-            // const body = req.body;
-            await knex.from('players').select('id', 'first_name', 'last_name', 'email')
-            .then((players) => {
-                res.status(200).json(players)
+            await knex.from('teams').select('*')
+            .then((teams) => {
+                res.status(200).json(teams)
             })
         } catch (error) {
-            res.status(400).json({ error: 'Team not found!' })
+            res.status(400).json({ error: 'Teams not found!' })
         }
     }
+    
     if (req.method === 'POST') {
         try {
             const {team} = req.body;

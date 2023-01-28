@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 // import Link from 'next/link'
 
-const TeamsList = () => {
-  
+const TeamsList = ({teams}) => {
+  const [division, setDivision] = useState('A');
+
     const handleTeamSelected = () => {
         window.location = '/teams/32'
     }
@@ -16,6 +17,34 @@ const TeamsList = () => {
     function handleDelete(e, id) {
         e.stopPropagation();
         // navigate(`/restaurants/${id}/update`);
+    }
+
+    function setDivisionString(division) {
+        let newDivision = '';
+        switch(division) {
+            case 'AAA':
+                newDivision = 'AAA - Elite';
+            break;
+            case 'AA':
+                newDivision = 'AA - Competitive';
+            break;
+            case 'A':
+                newDivision = 'A - Recreational';
+            break;
+            case 'B':
+                newDivision = 'B - Recreational';
+            break;
+            case 'C':
+                newDivision = 'C - Recreational';
+            break;
+            case 'D':
+                newDivision = 'D - Recreational';
+            break;
+            default:
+                newDivision = 'No division'
+            break;
+        }
+        return newDivision;
     }
   
   return (
@@ -44,54 +73,32 @@ const TeamsList = () => {
             </tr>
         </thead>
         <tbody>
-            <tr onClick={() => handleTeamSelected()} class="bg-blue-600 border-b border-blue-400 hover:bg-blue-500">
-                <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                    Captial Bosses
-                </th>
-                <td class="px-6 py-4">
-                    Recreational
-                </td>
-                <td class="px-6 py-4">
-                    Blue/White
-                </td>
-                <td class="px-6 py-4">
-                Amanda Bird
-                </td>
-                <td class="px-6 py-4">
-                <button onClick={(e) => handleUpdate(e, 5)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                    Edit
-                </button>
-                </td>
-                <td class="px-6 py-4">
-                <button onClick={(e) => handleDelete(e, 5)} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                    Delete
-                </button>
-                </td>
-            </tr>
-            <tr onClick={() => handleTeamSelected()} class="bg-blue-600 border-b border-blue-400 hover:bg-blue-500">
-                <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                Mighty Ducks
-                </th>
-                <td class="px-6 py-4">
-                    Competitive
-                </td>
-                <td class="px-6 py-4">
-                    Red/White
-                </td>
-                <td class="px-6 py-4">
-                    James Duval
-                </td>
-                <td class="px-6 py-4">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                    Edit
-                </button>
-                </td>
-                <td class="px-6 py-4">
-                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                    Delete
-                </button>
-                </td>
-            </tr>
+            {teams && teams.map((team) => (
+                <tr onClick={() => handleTeamSelected()} class="bg-blue-600 border-b border-blue-400 hover:bg-blue-500">
+                    <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                        {team.teamname}
+                    </th>
+                    <td class="px-6 py-4">
+                        {setDivisionString(team.division)}
+                    </td>
+                    <td class="px-6 py-4">
+                        {team.homeColor ? team.homeColor : 'No color set'}
+                    </td>
+                    <td class="px-6 py-4">
+                    {team.teammanager}
+                    </td>
+                    <td class="px-6 py-4">
+                    <button onClick={(e) => handleUpdate(e, 5)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                        Edit
+                    </button>
+                    </td>
+                    <td class="px-6 py-4">
+                    <button onClick={(e) => handleDelete(e, 5)} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                        Delete
+                    </button>
+                    </td>
+                </tr>
+            ))}
             
         </tbody>
     </table>

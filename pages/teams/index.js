@@ -6,48 +6,47 @@ import AddTeam from '@/components/teams/AddTeam.js';
 import TeamsList from '@/components/teams/TeamsList.js';
 
 const Teams = () => {
-  const [team, setTeam] = useState();
+  const [teams, setTeams] = useState();
 
   useEffect(() => {
-    async function getTeam() {
+    async function getTeams() {
       const resp = await fetch('/api/teams');
       let data = await resp.json();
       console.log(data);
-      setTeam(data);
+      setTeams(data);
     }
-    getTeam();
+    getTeams();
   }, [])
 
-  async function handlePost() {
-    console.log("TEST");
-    try {
-        const dummyObject = {
-            first_name: 'Justin',
-            last_name: 'Bernard',
-            email: 'justi31n@email.com'
-          }
+  // async function handlePost() {
+  //   console.log("TEST");
+  //   try {
+  //       const dummyObject = {
+  //           first_name: 'Justin',
+  //           last_name: 'Bernard',
+  //           email: 'justi31n@email.com'
+  //         }
           
-        await fetch('api/teams', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({team:dummyObject}),
-        }).catch(error => {
-          console.log(error)
-        })
+  //       await fetch('api/teams', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json'
+  //         },
+  //         body: JSON.stringify({team:dummyObject}),
+  //       }).catch(error => {
+  //         console.log(error)
+  //       })
 
-    } catch (error) {
-      console.error(error.message);
-    }
-
-  }
+  //   } catch (error) {
+  //     console.error(error.message);
+  //   }
+  // }
 
   return (
       <>
       <Header headerText="Teams" />
       <AddTeam />
-      <TeamsList />
+      <TeamsList teams={teams} />
       </>
     // <div>
     //     <h1>TEAMS PAGE!</h1>
