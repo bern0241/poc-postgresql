@@ -5,7 +5,7 @@ import Image from 'next/image'
 //   return classes.filter(Boolean).join(' ');
 // }
 
-function TeamImage() {
+function TeamImage({imagesrc}) {
   const [isLoading, setLoading] = useState(true);
 
   return (
@@ -13,7 +13,7 @@ function TeamImage() {
         <div class='overflow-hidden rounded-lg'>
             <img 
             alt=""
-            src="https://bit.ly/placeholder-img"
+            src={imagesrc ? imagesrc : "https://bit.ly/placeholder-img"}
             layout="fill"
             objectFit="cover"
             className='max-w-[10em] max-h-[10em] group-hover:opacity-75'

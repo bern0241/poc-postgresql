@@ -1,31 +1,50 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 const AddTeam = () => {
 
-     // async function handlePost() {
-  //   console.log("TEST");
-  //   try {
-  //       const dummyObject = {
-  //           first_name: 'Justin',
-  //           last_name: 'Bernard',
-  //           email: 'justi31n@email.com'
-  //         }
-          
-  //       await fetch('api/teams', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json'
-  //         },
-  //         body: JSON.stringify({team:dummyObject}),
-  //       }).catch(error => {
-  //         console.log(error)
-  //       })
+    const [teamName, setTeamName] = useState('');
+    const [division, setDivision] = useState('');
+    const [color, setColor] = useState('');
+    const [teamManager, setTeamManager] = useState('');
+    const [managerEmail, setManagerEmail] = useState('');
+    const [errorMessage, setErrorMessage] = useState(false);
 
-  //   } catch (error) {
-  //     console.error(error.message);
-  //   }
-  // }
-  
+    async function handlePost(e) {
+        e.preventDefault();
+
+        if (!teamName || !division || !color || !teamManager || !managerEmail) {
+            setErrorMessage(true);
+            setTimeout(() => {
+                setErrorMessage(false);
+            }, [5000])
+            return;
+        }
+
+        try {
+            const newTeam = {
+                teamname: teamName,
+                division: divsion,
+                teammanager: teamManager,
+                homecolor: color,
+                awaycolor: 'White',
+                manageremail: managerEmail
+            }
+            
+            await fetch('api/teams', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({team: newTeam}),
+            }).catch(error => {
+            console.log(error)
+            })
+
+        } catch (error) {
+        console.error(error.message);
+        }
+  }
+
   return (
     <div class="my-4">
     <form class="">
@@ -35,7 +54,7 @@ const AddTeam = () => {
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
         Team Name
       </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
+      <input value={teamName} onChange={(e) => setTeamName(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
       {/* <p class="text-red-500 text-xs italic">Please fill out this field.</p> */}
     </div>
 
@@ -44,7 +63,7 @@ const AddTeam = () => {
         Division
       </label>
       <div class="relative">
-        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+        <select value={division} onChange={(e) => setDivision(e.target.value)} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
           <option>D - Recreational</option>
           <option>C - Recreational</option>
           <option>B - Recreational</option>
@@ -63,7 +82,7 @@ const AddTeam = () => {
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
         Color
       </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
+      <input value={color} onChange={(e) => setColor(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
     </div>
 
     {/* <div class="w-full sm:w-auto"> */}
@@ -71,23 +90,29 @@ const AddTeam = () => {
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
         Team Manager
       </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
+      <input value={teamManager} onChange={(e) => setTeamManager(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
     </div>
 
     <div class="">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
         Manager Email
       </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
+      <input value={managerEmail} onChange={(e) => setManagerEmail(e.target.value)} class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
     </div>
 
     <div class="flex justify-end ">
-    <button class="bg-blue-500 hover:bg-blue-700 h-11 mt-[24px] w-[12rem] text-white font-bold rounded">
+    <button onClick={(e) => handlePost(e)} class="bg-blue-500 hover:bg-blue-700 h-11 mt-[24px] w-[12rem] text-white font-bold rounded">
     Add Team
     </button>
     </div>
 
   </div>
+    {errorMessage && (
+        <div class="flex justify-center mx-auto">
+        <p class="text-red-500">Please fillout all fields to add a team</p>
+        </div>
+    )}
+
 </form>
 </div>
   )

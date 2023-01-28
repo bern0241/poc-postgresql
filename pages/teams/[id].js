@@ -12,8 +12,8 @@ const TeamDetails = ({team}) => {
 
   return (
     <div class="flex items-center justify-center gap-5">
-        <TeamImage />
-        <h1 class="text-[50px]">{team[0].teamname}</h1>
+        <TeamImage imagesrc={team.imagesrc}/>
+        <h1 class="text-[50px]">{team.teamname}</h1>
     </div>
   )
 }
@@ -44,7 +44,7 @@ export const getStaticProps = async (context) => {
   const data = await res.json();
 
   return {
-    props: { team: data }
+    props: { team: data[0] } //IMPORTANT!
   }
 }
 
