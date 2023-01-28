@@ -21,7 +21,8 @@ function index() {
     try {
       await fetch(`/api/players/${id}`, {
         method: "PATCH",
-        // Update the current player with random values
+        // Update the current player with random values for testing
+        // We should be using data from a form instead
         body: JSON.stringify({
           first_name: `${(Math.random() * 10000).toFixed(0)}`,
           last_name: `${(Math.random() * 10000).toFixed(0)}`,

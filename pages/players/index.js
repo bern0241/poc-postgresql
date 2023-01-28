@@ -17,6 +17,7 @@ function index() {
       await fetch(`api/players`, {
         method: "POST",
         // Placeholder object for now
+        // We should be using data from a form instead
         body: JSON.stringify({
           first_name: `Joe`,
           last_name: `Doe`,
