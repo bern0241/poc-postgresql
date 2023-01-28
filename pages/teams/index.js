@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from 'react'
 
+//components
+import Header from '../../components/teams/Header.js'
+import AddTeam from '@/components/teams/AddTeam.js';
+
 const Teams = () => {
   const [team, setTeam] = useState();
 
@@ -39,16 +43,20 @@ const Teams = () => {
   }
 
   return (
-    <div>
-        <h1>TEAMS PAGE!</h1>
-        {team && team.map(team => (
-          <div className='bg-red-700' key={team.id}>
-            <p>{team.first_name}</p>
-            <p>{team.last_name}</p>
-          </div>
-        ))}
-        <button onClick={handlePost} class='bg-green-500'>Test Me</button>
-    </div>
+      <>
+      <Header headerText="Teams" />
+      <AddTeam />
+      </>
+    // <div>
+    //     <h1>TEAMS PAGE!</h1>
+    //     {team && team.map(team => (
+    //       <div className='bg-red-700' key={team.id}>
+    //         <p>{team.first_name}</p>
+    //         <p>{team.last_name}</p>
+    //       </div>
+    //     ))}
+    //     <button onClick={handlePost} class='bg-green-500'>Test Me</button>
+    // </div>
   )
 }
 
