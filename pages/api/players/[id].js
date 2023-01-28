@@ -6,12 +6,21 @@ export default async function handler(req, res) {
       await knex("players")
         .where("id", req.query.id)
         .select()
-        .then((players) => {
-          // The response is an array, so spreading gives us the player object
-          res.status(200).json(...players);
+        .then(async (players) => {
+          // The response is an array, and since we're only querying 1 player
+          // the length will always be 1, and this we get the first element
+          const player = players[0];
+          // Get the player's teams
+          // If theres no teams, return an empty array
+          const playerTeams =
+            (await knex("teams").whereIn("id", player.teams).select()) || [];
+          res.status(200).json({
+            player: player,
+            playerTeams: playerTeams,
+          });
         });
     } catch (error) {
-      res.status(400).json({ error: "Player not found!" });
+      res.status(400).json({ error: error.message });
     }
   }
   if (req.method === "PATCH") {

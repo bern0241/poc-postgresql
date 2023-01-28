@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 function index() {
   const [player, setPlayer] = useState({});
+  const [playerTeams, setPlayerTeams] = useState([]);
   const router = useRouter();
   const { id } = router.query;
 
@@ -10,7 +11,9 @@ function index() {
     if (!id) return;
     try {
       await fetch(`/api/players/${id}`).then(async (resp) => {
-        setPlayer(await resp.json());
+        const response = await resp.json();
+        setPlayer(response.player);
+        setPlayerTeams(response.playerTeams);
       });
     } catch (err) {
       console.warn(err);
@@ -63,9 +66,21 @@ function index() {
     <>
       <div>
         <p>
-          {player.first_name} {player.last_name}
+          Name: {player.first_name} {player.last_name}
         </p>
-        <p>{player.email}</p>
+        <p>Email: {player.email}</p>
+        <p>
+          Teams:{" "}
+          {playerTeams ? (
+            playerTeams.map((team) => (
+              <div>
+                <p>{team.teamname}</p>
+              </div>
+            ))
+          ) : (
+            <p>Player is not a member of a team</p>
+          )}
+        </p>
         <button onClick={deletePlayer}>Delete</button>
         <button onClick={() => updatePlayer()}>Update</button>
       </div>
