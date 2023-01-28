@@ -13,7 +13,7 @@ function index() {
         setPlayer(await resp.json());
       });
     } catch (err) {
-      console.log(err);
+      console.warn(err);
     }
   };
   const deletePlayer = async () => {
@@ -22,11 +22,10 @@ function index() {
       await fetch(`/api/players/${id}`, {
         method: "DELETE",
       }).then(async (resp) => {
-        console.log(await resp.json());
         router.push("/players");
       });
     } catch (err) {
-      console.log(err);
+      console.warn(err);
     }
   };
   useEffect(() => {
