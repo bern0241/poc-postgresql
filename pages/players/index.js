@@ -12,6 +12,26 @@ function index() {
       console.log(err);
     }
   };
+  const addPlayer = async () => {
+    try {
+      await fetch(`api/players`, {
+        method: "POST",
+        // Placeholder object for now
+        body: JSON.stringify({
+          first_name: `Joe`,
+          last_name: `Doe`,
+          email: `${(Math.random() * 100).toFixed(0)}@email.com`,
+        }),
+      })
+        .then((resp) => {
+          console.log(resp);
+          if (resp.ok) getPlayers();
+        })
+        .catch((err) => console.log(err));
+    } catch (err) {
+      console.warn(err);
+    }
+  };
 
   useEffect(() => {
     getPlayers();
@@ -19,6 +39,7 @@ function index() {
   return (
     <>
       <div>**** PLAYERS ****</div>
+      <button onClick={addPlayer}>***Add player</button>
       {players.map((player) => (
         <div>
           <Link href={`/players/${player.id}`}>

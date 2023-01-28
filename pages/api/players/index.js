@@ -15,11 +15,12 @@ export default async function handler(req, res) {
   }
   if (req.method === "POST") {
     try {
-      const { player } = req.body;
-      await knex("players").insert(player);
+      const data = await JSON.parse(req.body);
+      await knex("players").insert(data);
       res.status(200).json({ message: "Player added" });
     } catch (error) {
-      res.status(400).json({ error: "Player not found!" });
+      // res.status(400).json({ error: error.message });
+      res.status(400).send({ body: req.body });
     }
   }
 }
