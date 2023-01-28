@@ -1,4 +1,6 @@
 import React, {useState} from 'react'
+import { useTeams } from '@/context/teamsContext.js';
+import Teams from '@/pages/teams';
 
 const AddTeam = () => {
 
@@ -8,6 +10,8 @@ const AddTeam = () => {
     const [teamManager, setTeamManager] = useState('');
     const [managerEmail, setManagerEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState(false);
+    // global teams context
+    const [teams, setTeams] = useTeams();
 
     async function handlePost(e) {
         e.preventDefault();
@@ -33,15 +37,18 @@ const AddTeam = () => {
                 manageremail: managerEmail
             }
 
-            console.log(newTeam);
+            // console.log("NEW TEAM:", newTeam);
             
             await fetch('api/teams', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({team: newTeam}),
-            }).catch(error => {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({team: newTeam})
+            }).then(result => {
+                setTeams([...teams, newTeam]);
+            })
+            .catch(error => {
             console.log(error)
             })
 

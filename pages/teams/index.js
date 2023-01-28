@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react'
-
 //components
 import Header from '../../components/teams/Header.js'
 import AddTeam from '@/components/teams/AddTeam.js';
 import TeamsList from '@/components/teams/TeamsList.js';
 
-const Teams = ({teams}) => {
-
+const Teams = () => {
+  
   return (
       <>
       <Header headerText="Teams" />
       <AddTeam />
-      <TeamsList teams={teams} />
+      <TeamsList />
       </>
   )
 }

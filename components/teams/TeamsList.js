@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react'
 // import Link from 'next/link'
+import { useTeams } from '@/context/teamsContext.js';
 
-const TeamsList = ({teams}) => {
-  const [division, setDivision] = useState('A');
+
+const TeamsList = () => {
+    const [teams, setTeams] = useTeams([]);
 
     const handleTeamSelected = (id) => {
         window.location = `/teams/${id}`
@@ -19,7 +21,11 @@ const TeamsList = ({teams}) => {
         try {
             await fetch('api/teams/' + id, {
             method: 'DELETE'
-            }).catch(error => {
+            })
+            .then((result) => {
+                setTeams(teams.filter(team => team.id !== id))
+            })
+            .catch(error => {
                 console.log(error)
             })
 
