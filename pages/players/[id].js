@@ -16,6 +16,24 @@ function index() {
       console.warn(err);
     }
   };
+  const updatePlayer = async () => {
+    if (!id) return;
+    try {
+      await fetch(`/api/players/${id}`, {
+        method: "PATCH",
+        // Update the current player with random values
+        body: JSON.stringify({
+          first_name: `${(Math.random() * 10000).toFixed(0)}`,
+          last_name: `${(Math.random() * 10000).toFixed(0)}`,
+          email: `${(Math.random() * 100).toFixed(0)}@email.com`,
+        }),
+      }).then((resp) => {
+        if (resp.ok) getPlayer();
+      });
+    } catch (err) {
+      console.warn(err);
+    }
+  };
   const deletePlayer = async () => {
     if (!id) return;
     try {
@@ -37,7 +55,9 @@ function index() {
         <p>
           {player.first_name} {player.last_name}
         </p>
+        <p>{player.email}</p>
         <button onClick={deletePlayer}>Delete</button>
+        <button onClick={updatePlayer}>Update</button>
       </div>
     </>
   );
