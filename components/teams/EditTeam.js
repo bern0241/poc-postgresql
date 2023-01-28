@@ -1,19 +1,21 @@
 import React, {useState} from 'react'
 import { useTeams } from '@/context/teamsContext.js';
-import Teams from '@/pages/teams';
+import { useRouter } from 'next/navigation';
 
-const AddTeam = () => {
+const EditTeam = ({team}) => {
 
-    const [teamName, setTeamName] = useState('');
-    const [division, setDivision] = useState('');
-    const [color, setColor] = useState('');
-    const [teamManager, setTeamManager] = useState('');
-    const [managerEmail, setManagerEmail] = useState('');
+    const router = useRouter();
+    //states
+    const [teamName, setTeamName] = useState(team.teamname);
+    const [division, setDivision] = useState(team.division);
+    const [color, setColor] = useState(team.homecolor);
+    const [teamManager, setTeamManager] = useState(team.teammanager);
+    const [managerEmail, setManagerEmail] = useState(team.manageremail);
     const [errorMessage, setErrorMessage] = useState(false);
     // global teams context
-    const [teams, setTeams] = useTeams();
+    const [teams, setTeams] = useTeams(team.manageremail);
 
-    async function handlePost(e) {
+    async function handleEdit(e) {
         e.preventDefault();
 
         if (teamName === '' || division === '' || color === '' || teamManager === '' || managerEmail === '') 
@@ -28,7 +30,7 @@ const AddTeam = () => {
         setErrorMessage(false);
 
         try {
-            const newTeam = {
+            const editTeam = {
                 teamname: teamName,
                 division: division,
                 teammanager: teamManager,
@@ -38,20 +40,18 @@ const AddTeam = () => {
             }
 
             // console.log("NEW TEAM:", newTeam);
-            
-            await fetch('api/teams', {
-                method: 'POST',
+            router.push('/teams');
+            await fetch('http://localhost:3000/api/teams/' + team.id, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({team: newTeam})
+                body: JSON.stringify({team: editTeam})
             }).then(result => {
+                // var items = teams;?
+                // console.log("Items:", items);
                 setTeams([...teams, newTeam]);
-                setTeamName('');
-                // setDivision('Choose Division');
-                setColor('');
-                setTeamManager('');
-                setManagerEmail('');
+                // router.push('/teams');
             })
             .catch(error => {
             console.log(error)
@@ -119,15 +119,15 @@ const AddTeam = () => {
     </div>
 
     <div class="flex justify-end ">
-    <button onClick={(e) => handlePost(e)} class="bg-blue-500 hover:bg-blue-700 h-11 mt-[24px] w-[12rem] text-white font-bold rounded">
-    Add Team
+    <button onClick={(e) => handleEdit(e)} class="bg-yellow-500 hover:bg-yellow-700 h-11 mt-[24px] w-[12rem] text-white font-bold rounded">
+    Edit Team
     </button>
     </div>
 
   </div>
     {errorMessage && (
         <div class="flex justify-center mx-auto">
-        <p class="text-red-500">Please fillout all fields to add a team.</p>
+        <p class="text-red-500">Please fillout all fields to edit the team.</p>
         </div>
     )}
 
@@ -136,4 +136,4 @@ const AddTeam = () => {
   )
 }
 
-export default AddTeam
+export default EditTeam

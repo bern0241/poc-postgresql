@@ -26,6 +26,19 @@ export default async function handler(req, res) {
         }
     }
 
+    if (req.method === 'PATCH') {
+        try {
+            const {team} = req.body;
+            await knex.from('teams').where({ id: id })
+            .update(team)
+            .then((team) => {
+                res.status(204).send("Team updated!!")
+            })
+        } catch (error) {
+            res.status(400).json({ error: 'Team not found or updated!', query: req.query })
+        }
+    }
+
     if (req.method === 'DELETE') {
         try {
             await knex.from('teams').where({ id: id })

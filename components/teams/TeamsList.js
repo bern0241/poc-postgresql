@@ -1,18 +1,31 @@
 import React, {useState, useEffect} from 'react'
 // import Link from 'next/link'
 import { useTeams } from '@/context/teamsContext.js';
-
+import { useRouter } from 'next/navigation';
 
 const TeamsList = () => {
+    const router = useRouter();
     const [teams, setTeams] = useTeams([]);
 
+    useEffect(() => {
+        (async () => {
+            try {
+                const resp = await fetch('api/teams');
+                const data = await resp.json();
+                setTeams(data);
+            } catch (err) {
+                console.log('Error occured when fetching teams');
+            }
+        })();
+    }, [])
+
     const handleTeamSelected = (id) => {
-        window.location = `/teams/${id}`
+        router.push(`/teams/${id}`);
     }
 
     function handleUpdate(e, id) {
         e.stopPropagation();
-        window.location = '/';
+        router.push(`/teams/${id}/update`);
         // navigate(`/restaurants/${id}/update`);
     }
 
@@ -97,13 +110,13 @@ const TeamsList = () => {
                         {setDivisionString(team.division)}
                     </td>
                     <td class="px-6 py-4">
-                        {team.homeColor ? team.homeColor : 'No color set'}
+                        {team.homecolor ? team.homecolor : 'No color set'}
                     </td>
                     <td class="px-6 py-4">
                     {team.teammanager}
                     </td>
                     <td class="px-6 py-4">
-                    <button onClick={(e) => handleUpdate(e, team.id)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    <button onClick={(e) => handleUpdate(e, team.id)} class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                         Edit
                     </button>
                     </td>

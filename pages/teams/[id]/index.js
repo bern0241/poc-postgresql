@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useRouter } from 'next/router'
 
 //components
-import TeamImage from '../../components/teams/TeamImage.js'
+import TeamImage from '../../../components/teams/TeamImage.js'
 
 const TeamDetails = ({team}) => {
 
@@ -17,9 +17,6 @@ const TeamDetails = ({team}) => {
     </div>
   )
 }
-
-
-
 
 
 export const getStaticPaths = async () => {
