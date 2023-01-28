@@ -13,6 +13,8 @@
     "dotenv": "^16.0.3",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.5",
+    "flowbite": "^1.6.3",
+    "flowbite-react": "^0.3.8",
     "knex": "^2.4.2",
     "next": "13.1.5",
     "pg": "^8.8.0",

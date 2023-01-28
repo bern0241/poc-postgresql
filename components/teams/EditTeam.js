@@ -63,7 +63,7 @@ const EditTeam = ({team}) => {
   }
 
   return (
-    <div class="my-4">
+    <div class="my-4 border">
     <form class="">
     <div class="p-5 gap-3 grid justify-center grid-cols-2 lg:grid-cols-6 mx-auto max-w-[80em]">
 
