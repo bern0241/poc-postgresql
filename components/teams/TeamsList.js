@@ -14,9 +14,18 @@ const TeamsList = ({teams}) => {
         // navigate(`/restaurants/${id}/update`);
     }
 
-    function handleDelete(e, id) {
+    async function handleDelete(e, id) {
         e.stopPropagation();
-        // navigate(`/restaurants/${id}/update`);
+        try {
+            await fetch('api/teams/' + id, {
+            method: 'DELETE'
+            }).catch(error => {
+                console.log(error)
+            })
+
+        } catch (error) {
+        console.error(error.message);
+        }
     }
 
     function setDivisionString(division) {
@@ -88,12 +97,12 @@ const TeamsList = ({teams}) => {
                     {team.teammanager}
                     </td>
                     <td class="px-6 py-4">
-                    <button onClick={(e) => handleUpdate(e, 5)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    <button onClick={(e) => handleUpdate(e, team.id)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                         Edit
                     </button>
                     </td>
                     <td class="px-6 py-4">
-                    <button onClick={(e) => handleDelete(e, 5)} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    <button onClick={(e) => handleDelete(e, team.id)} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                         Delete
                     </button>
                     </td>

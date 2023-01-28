@@ -25,16 +25,16 @@ export default async function handler(req, res) {
             res.status(400).json({ error: 'Team not found!', query: req.query })
         }
     }
-    // if (req.method === 'POST') {
-    //     try {
-    //         const {team} = req.body;
-    //         await knex('players')
-    //                 .insert(team)
-    //                 // .insert({ first_name: 'Brian', last_name: 'Griffin', email: 'brian@email.com' })
-    //         res.status(200).json({ team: "THIS WORKS!" })
-    //     } catch (error) {
-    //         console.log(error);
-    //         // res.status(400).json({ error: 'Team not found!' })
-    //     }
-    // }
+
+    if (req.method === 'DELETE') {
+        try {
+            await knex.from('teams').where({ id: id })
+            .del()
+            .then((team) => {
+                res.status(204).send("Team deleted!")
+            })
+        } catch (error) {
+            res.status(400).json({ error: 'Team not found or deleted!', query: req.query })
+        }
+    }
   }

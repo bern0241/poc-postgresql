@@ -12,7 +12,8 @@ const AddTeam = () => {
     async function handlePost(e) {
         e.preventDefault();
 
-        if (!teamName || !division || !color || !teamManager || !managerEmail) {
+        if (teamName === '' || division === '' || color === '' || teamManager === '' || managerEmail === '') 
+        {
             setErrorMessage(true);
             setTimeout(() => {
                 setErrorMessage(false);
@@ -20,15 +21,19 @@ const AddTeam = () => {
             return;
         }
 
+        setErrorMessage(false);
+
         try {
             const newTeam = {
                 teamname: teamName,
-                division: divsion,
+                division: division,
                 teammanager: teamManager,
                 homecolor: color,
                 awaycolor: 'White',
                 manageremail: managerEmail
             }
+
+            console.log(newTeam);
             
             await fetch('api/teams', {
             method: 'POST',
@@ -64,12 +69,13 @@ const AddTeam = () => {
       </label>
       <div class="relative">
         <select value={division} onChange={(e) => setDivision(e.target.value)} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option>D - Recreational</option>
-          <option>C - Recreational</option>
-          <option>B - Recreational</option>
-          <option selected>A - Recreational</option>
-          <option>AA - Competitive</option>
-          <option>AAA - Elite</option>
+        <option hidden>Choose Division</option>  
+          <option value="D">D - Recreational</option>
+          <option value="C">C - Recreational</option>
+          <option value="B">B - Recreational</option>
+          <option value="A">A - Recreational</option>
+          <option value="AA">AA - Competitive</option>
+          <option value="AAA">AAA - Elite</option>
         </select>
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
           <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>

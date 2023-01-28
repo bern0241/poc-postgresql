@@ -22,11 +22,11 @@ export default async function handler(req, res) {
             res.status(400).json({ error: 'Teams not found!' })
         }
     }
-    
+
     if (req.method === 'POST') {
         try {
             const {team} = req.body;
-            await knex('players')
+            await knex('teams')
                     .insert(team)
                     // .insert({ first_name: 'Brian', last_name: 'Griffin', email: 'brian@email.com' })
             res.status(200).json({ team: "THIS WORKS!" })
