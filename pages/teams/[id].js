@@ -1,33 +1,53 @@
 import React, {useEffect, useState} from 'react'
-
+import { useRouter } from 'next/router'
 
 //components
 import TeamImage from '../../components/teams/TeamImage.js'
 
-const TeamDetails = () => {
-  
-  const [team, setTeam] = useState();
+const TeamDetails = ({team}) => {
 
   useEffect(() => {
-    async function getTeam() {
-      const resp = await fetch('/api/teams');
-      let data = await resp.json();
-      console.log(data);
-      setTeam(data);
-    }
-    getTeam();
+    console.log(team);
   }, [])
 
   return (
     <div class="flex items-center justify-center gap-5">
         <TeamImage />
-        <h1 class="text-[50px]">TEAM NAME!</h1>
+        <h1 class="text-[50px]">{team[0].teamname}</h1>
     </div>
   )
 }
 
-export default TeamDetails;
 
-export async function getStaticProps() {
 
+
+
+export const getStaticPaths = async () => {
+  const res = await fetch('http://localhost:3000/api/teams');
+  const data = await res.json();
+
+  const paths = data.map(team => {
+    return {
+      params: { id: team.id.toString() }
+    }
+  })
+
+  return {
+    paths: paths,
+    fallback: false //will show 404 page
+  }
 }
+
+export const getStaticProps = async (context) => {
+  const id = context.params.id;
+  const res = await fetch('http://localhost:3000/api/teams/' + id);
+  const data = await res.json();
+
+  return {
+    props: { team: data }
+  }
+}
+
+
+
+export default TeamDetails;

@@ -1,6 +1,31 @@
 import React from 'react'
 
 const AddTeam = () => {
+
+     // async function handlePost() {
+  //   console.log("TEST");
+  //   try {
+  //       const dummyObject = {
+  //           first_name: 'Justin',
+  //           last_name: 'Bernard',
+  //           email: 'justi31n@email.com'
+  //         }
+          
+  //       await fetch('api/teams', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json'
+  //         },
+  //         body: JSON.stringify({team:dummyObject}),
+  //       }).catch(error => {
+  //         console.log(error)
+  //       })
+
+  //   } catch (error) {
+  //     console.error(error.message);
+  //   }
+  // }
+  
   return (
     <div class="my-4">
     <form class="">

@@ -4,8 +4,8 @@ import React, {useState, useEffect} from 'react'
 const TeamsList = ({teams}) => {
   const [division, setDivision] = useState('A');
 
-    const handleTeamSelected = () => {
-        window.location = '/teams/32'
+    const handleTeamSelected = (id) => {
+        window.location = `/teams/${id}`
     }
 
     function handleUpdate(e, id) {
@@ -74,7 +74,7 @@ const TeamsList = ({teams}) => {
         </thead>
         <tbody>
             {teams && teams.map((team) => (
-                <tr onClick={() => handleTeamSelected()} class="bg-blue-600 border-b border-blue-400 hover:bg-blue-500">
+                <tr onClick={() => handleTeamSelected(team.id)} class="bg-blue-600 border-b border-blue-400 hover:bg-blue-500">
                     <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
                         {team.teamname}
                     </th>

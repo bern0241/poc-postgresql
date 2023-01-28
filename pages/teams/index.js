@@ -5,42 +5,18 @@ import Header from '../../components/teams/Header.js'
 import AddTeam from '@/components/teams/AddTeam.js';
 import TeamsList from '@/components/teams/TeamsList.js';
 
-const Teams = () => {
-  const [teams, setTeams] = useState();
+const Teams = ({teams}) => {
+  // const [teams, setTeams] = useState();
 
-  useEffect(() => {
-    async function getTeams() {
-      const resp = await fetch('/api/teams');
-      let data = await resp.json();
-      console.log(data);
-      setTeams(data);
-    }
-    getTeams();
-  }, [])
-
-  // async function handlePost() {
-  //   console.log("TEST");
-  //   try {
-  //       const dummyObject = {
-  //           first_name: 'Justin',
-  //           last_name: 'Bernard',
-  //           email: 'justi31n@email.com'
-  //         }
-          
-  //       await fetch('api/teams', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json'
-  //         },
-  //         body: JSON.stringify({team:dummyObject}),
-  //       }).catch(error => {
-  //         console.log(error)
-  //       })
-
-  //   } catch (error) {
-  //     console.error(error.message);
+  // useEffect(() => {
+  //   async function getTeams() {
+  //     const resp = await fetch('/api/teams');
+  //     let data = await resp.json();
+  //     console.log(data);
+  //     setTeams(data);
   //   }
-  // }
+  //   getTeams();
+  // }, [])
 
   return (
       <>
@@ -48,19 +24,17 @@ const Teams = () => {
       <AddTeam />
       <TeamsList teams={teams} />
       </>
-    // <div>
-    //     <h1>TEAMS PAGE!</h1>
-    //     {team && team.map(team => (
-    //       <div className='bg-red-700' key={team.id}>
-    //         <p>{team.first_name}</p>
-    //         <p>{team.last_name}</p>
-    //       </div>
-    //     ))}
-    //     <button onClick={handlePost} class='bg-green-500'>Test Me</button>
-    // </div>
   )
 }
 
+export const getStaticProps = async () => {
+  const resp = await fetch('http://localhost:3000/api/teams');
+  let data = await resp.json();
+
+  return {
+    props: { teams: data }
+  }
+}
 
 // export async function getServerSideProps() {
 //   const options = {

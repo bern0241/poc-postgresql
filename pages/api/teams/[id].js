@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+
 const knex = require('knex')({
     client: 'postgresql',
     connection: {
@@ -11,15 +13,16 @@ const knex = require('knex')({
 
 export default async function handler(req, res) {
     
+    const {id} = req.query;
+
     if (req.method === 'GET') {
         try {
-            const { id } = req.query
-            await knex.from('teams').select('*').where({ id: id })
-            .then((players) => {
-                res.status(200).json(players)
+            await knex.from('teams').where({ id: id })
+            .then((team) => {
+                res.status(200).json(team)
             })
         } catch (error) {
-            res.status(400).json({ error: 'Team not found!' })
+            res.status(400).json({ error: 'Team not found!', query: req.query })
         }
     }
     // if (req.method === 'POST') {
