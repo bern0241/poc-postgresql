@@ -1,10 +1,7 @@
 import React, {useState, useEffect} from 'react'
 // import Link from 'next/link'
-import { useTeams } from '@/context/teamsContext.js';
-import { useRouter } from 'next/navigation';
 
 const PlayerRoster = ({players}) => {
-    const router = useRouter();
 
     async function handleRemove(e, id) {
         e.stopPropagation();

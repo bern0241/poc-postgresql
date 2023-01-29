@@ -1,33 +1,37 @@
 import React, {useEffect, useState} from 'react'
 import 'flowbite'; 
 import Image from 'next/image';
-import { useRouter } from 'next/router'
+// import useRouterNav from "next/navigation/useRouter()";
+import { useRouter, useSearchParams } from 'next/navigation';
 
-const AddPlayerButton = () => {
+const AddPlayerButton = ({players}) => {
 
-    const [players, setPlayers] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
-    const router = useRouter()
-    const { id } = router.query;
+    const [playerList, setPlayerList] = useState(false);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const id = searchParams.get('id');
 
     useEffect(() => {
-        getPlayers();
+        getPlayersList();
     }, [])
 
-    async function getPlayers() {
+    async function getPlayersList() {
         try {
             const resp = await fetch('http://localhost:3000/api/players2');
             let data = await resp.json();
             console.log(data);
-            setPlayers(data);
+            setPlayerList(data);
         } catch (error) {
             console.error(error.message);
         }
     }
 
+
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);   
     }
+
 
     const addPlayerToTeam = async (e, player) => {
         setShowDropdown(false);
@@ -45,11 +49,16 @@ const AddPlayerButton = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(newTeamMember)
+            }).then((result) => {
+                // setPlayers([...players, newTeamMember])
+                router.refresh();
             })
         } catch (error) {
             console.error(error.message);
         }
     }
+
+
 
   return (
     <div>
@@ -71,7 +80,7 @@ const AddPlayerButton = () => {
 
 
         <ul class="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton">
-        {players && players.map((player) => (
+        {playerList && playerList.map((player) => (
             <li>
             <a onClick={(e) => addPlayerToTeam(e, player)} class="flex cursor-pointer items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 <Image width={500}

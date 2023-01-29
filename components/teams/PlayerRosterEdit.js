@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react'
 // import Link from 'next/link'
-import { useTeams } from '@/context/teamsContext.js';
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 const PlayerRosterEdit = ({players}) => {
+
     const router = useRouter();
 
     // const handlePlayerSelected = (id) => {
     //     router.push(`/players/${id}`);
     // }
+
 
     async function handleRemove(e, id) {
         e.stopPropagation();
@@ -18,8 +19,8 @@ const PlayerRosterEdit = ({players}) => {
             method: 'DELETE'
             })
             .then((result) => {
-                console.log('success')
-                // setTeams(teams.filter(team => team.id !== id))
+                // setPlayers(players.filter(player => player.id !== id))
+                router.refresh();
             })
             .catch(error => {
                 console.log(error)
@@ -29,7 +30,6 @@ const PlayerRosterEdit = ({players}) => {
         console.error(error.message);
         }
     }
-
   
   return (
 <div class="mt-5 max-w-[80em] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -60,8 +60,9 @@ const PlayerRosterEdit = ({players}) => {
             </tr>
         </thead>
         <tbody>
+
             {players && players.map((player) => (
-                <tr onClick={() => handleTeamSelected(team.id)} class="bg-gray-000 border-b border-gray-300 hover:bg-gray-100 text-gray-600">
+                <tr class="bg-gray-000 border-b border-gray-300 hover:bg-gray-100 text-gray-600">
                     <th scope="row" class="text-left px-6 py-4 font-medium whitespace-nowrap dark:text-blue-100">
                         {player.first_name} {player.last_name}
                     </th>

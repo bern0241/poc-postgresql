@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { useRouter } from 'next/router';
 //components
 import Header from '@/components/teams/Header'
 import EditTeam from '@/components/teams/EditTeam'
@@ -7,7 +8,9 @@ import AddPlayerButton from '@/components/teams/AddPlayerButton';
 import TeamImage from '@/components/teams/TeamImage';
 
 function TeamUpdate({team, players}) {
-    const header = `Edit ${team.teamname}`;
+
+    const router = useRouter();
+  
     return (
        <>
        <div class="flex items-center justify-center gap-5 relative right-[2.5rem]">
@@ -17,7 +20,7 @@ function TeamUpdate({team, players}) {
        <EditTeam team={team} />
        <div class="flex justify-center gap-5 items-center">
         <h2 class="mt-5 text-center text-[2rem] mb-3">Player Roster</h2>
-        <AddPlayerButton />
+        <AddPlayerButton players={players} />
        </div>
        <PlayerRosterEdit players={players} />
        </>
