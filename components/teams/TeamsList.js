@@ -4,7 +4,7 @@ import { useTeams } from '@/context/teamsContext.js';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 //components
-import DeleteModal from './DeleteModal';
+import DeleteTeamModal from './DeleteTeamModal';
 
 const TeamsList = () => {
     const router = useRouter();
@@ -140,7 +140,7 @@ const TeamsList = () => {
 </div>
 
 {deleteModal && (
-    <DeleteModal team={team} setDeleteModal={setDeleteModal} />
+    <DeleteTeamModal team={team} setDeleteModal={setDeleteModal} />
 )}
 </>
 

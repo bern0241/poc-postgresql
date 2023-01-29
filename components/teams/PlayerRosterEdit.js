@@ -1,37 +1,24 @@
 import React, {useState, useEffect} from 'react'
-// import Link from 'next/link'
 import { useRouter } from "next/navigation";
+import RemovePlayerModal from './RemovePlayerModal';
 
 const PlayerRosterEdit = ({players}) => {
 
     const router = useRouter();
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [player, setPlayer] = useState({});
+
+    function handleModalOpen(e, _player) {
+        setDeleteModal(true);
+        setPlayer(_player);
+    }
 
     // const handlePlayerSelected = (id) => {
     //     router.push(`/players/${id}`);
     // }
-
-
-    async function handleRemove(e, id) {
-        e.stopPropagation();
-        console.log(id);
-        try {
-            await fetch('http://localhost:3000/api/teams_players/' + id, {
-            method: 'DELETE'
-            })
-            .then((result) => {
-                // setPlayers(players.filter(player => player.id !== id))
-                router.refresh();
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
-        } catch (error) {
-        console.error(error.message);
-        }
-    }
   
   return (
+    <>
 <div class="mt-5 max-w-[80em] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="text-center text-[1rem] w-full text-sm text-left text-yellow-100 dark:text-yellow-100">
         <thead class="text-xs text-white uppercase bg-yellow-500 border-b border-black-400 dark:text-white">
@@ -82,7 +69,7 @@ const PlayerRosterEdit = ({players}) => {
                     0
                     </td>
                     <td class="px-6 py-4">
-                    <button onClick={(e) => handleRemove(e, player.player_id)} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    <button onClick={(e) => handleModalOpen(e, player)} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                         Remove
                     </button>
                     </td>
@@ -92,7 +79,10 @@ const PlayerRosterEdit = ({players}) => {
         </tbody>
     </table>
 </div>
-
+{deleteModal && (
+    <RemovePlayerModal player={player} setDeleteModal={setDeleteModal} />
+)}
+</>
 
   )
 }

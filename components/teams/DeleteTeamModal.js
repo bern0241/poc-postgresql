@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import { useTeams } from '@/context/teamsContext';
 import Image from 'next/image';
 
-const DeleteModal = ({setDeleteModal, team}) => {
+const DeleteTeamModal = ({setDeleteModal, team}) => {
 
     useEffect(() => {
         console.log('team:', team);
@@ -65,4 +65,4 @@ const DeleteModal = ({setDeleteModal, team}) => {
   )
 }
 
-export default DeleteModal
+export default DeleteTeamModal
