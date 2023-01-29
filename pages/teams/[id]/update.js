@@ -2,20 +2,24 @@ import React, {useState, useEffect} from 'react'
 //components
 import Header from '@/components/teams/Header'
 import EditTeam from '@/components/teams/EditTeam'
-import PlayerRoster from '@/components/teams/PlayerRoster';
+import PlayerRosterEdit from '@/components/teams/PlayerRosterEdit';
 import AddPlayerButton from '@/components/teams/AddPlayerButton';
+import TeamImage from '@/components/teams/TeamImage';
 
-function TeamUpdate({team}) {
+function TeamUpdate({team, players}) {
     const header = `Edit ${team.teamname}`;
     return (
        <>
-       <Header headerText={header}/>
+       <div class="flex items-center justify-center gap-5 relative right-[2.5rem]">
+        <TeamImage imagesrc={team.imagesrc}/>
+        <h1 class="text-[40px]">{team.teamname}</h1>
+    </div>
        <EditTeam team={team} />
-       <div class="flex justify-center gap-5">
-        <h2 class="text-center text-[2rem] mb-3">Player Roster</h2>
+       <div class="flex justify-center gap-5 items-center">
+        <h2 class="mt-5 text-center text-[2rem] mb-3">Player Roster</h2>
         <AddPlayerButton />
        </div>
-       <PlayerRoster />
+       <PlayerRosterEdit players={players} />
        </>
       )
 }
@@ -39,12 +43,16 @@ export const getStaticPaths = async () => {
     }
   }
   
+
   export const getStaticProps = async (context) => {
     const id = context.params.id;
     const res = await fetch('http://localhost:3000/api/teams/' + id);
     const data = await res.json();
   
     return {
-      props: { team: data[0] } //IMPORTANT!
+      props: { 
+        team: data.data.team, 
+        players: data.data.players, 
+      }
     }
   }

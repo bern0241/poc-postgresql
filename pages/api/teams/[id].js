@@ -17,9 +17,21 @@ export default async function handler(req, res) {
 
     if (req.method === 'GET') {
         try {
-            await knex.from('teams').where({ id: id })
-            .then((team) => {
-                res.status(200).json(team)
+            const team = await knex.from('teams').where({ id: id })
+            const players = await knex
+                .select('*')
+                .from('players')
+                .join('teams_players', 'players.id', 'teams_players.player_id')
+                .join('teams', 'teams.id', 'teams_players.team_id')
+                .where('teams.id', id)
+            
+            res.status(200).json({
+                status: 'success',
+                // results: restaurantRatingsData.rows.length,
+                data: {
+                    team: team[0],
+                    players: players
+                }
             })
         } catch (error) {
             res.status(400).json({ error: 'Team not found!', query: req.query })

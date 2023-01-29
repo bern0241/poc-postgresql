@@ -16,7 +16,7 @@ function TeamImage({imagesrc}) {
             src={imagesrc ? imagesrc : "https://bit.ly/placeholder-img"}
             layout="fill"
             objectFit="cover"
-            className='max-w-[10em] max-h-[10em] group-hover:opacity-75'
+            className='max-w-[9em] max-h-[10em] group-hover:opacity-75'
             />
         </div>
         {/* <h3 className='mt-4 text-sm text-gray-700'>Justin Bernard</h3>

@@ -23,6 +23,23 @@ export default async function handler(req, res) {
         }
     }
 
+    // if (req.method === 'GET') {
+    //     try {
+    //         await knex
+    //             .select('*')
+    //             .from('players')
+    //             .join('teams_players', 'players.id', 'teams_players.player_id')
+    //             .join('teams', 'teams.id', 'teams_players.team_id')
+    //             .where('teams.id', 1)
+
+    //         .then((players) => {
+    //             res.status(200).json(players)
+    //         })
+    //     } catch (error) {
+    //         res.status(400).json({ error: 'Teams not found!' })
+    //     }
+    // }
+
     // if (req.method === 'POST') {
     //     try {
     //         const {team} = req.body;
