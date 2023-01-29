@@ -15,6 +15,17 @@ export default async function handler(req, res) {
     
     const {id} = req.query;
     
+    // if (req.method === 'GET') {
+    //     try {
+    //         await knex.from('teams_players').select('*').where({ player_id: id})
+    //         .then((teams) => {
+    //             res.status(200).json(teams)
+    //         })
+    //     } catch (error) {
+    //         res.status(400).json({ error: 'Teams not found!' })
+    //     }
+    // }
+
     if (req.method === 'DELETE') {
 
         try {

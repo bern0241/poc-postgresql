@@ -12,17 +12,6 @@ const knex = require('knex')({
 
 export default async function handler(req, res) {
     
-    // if (req.method === 'GET') {
-    //     try {
-    //         await knex.from('teams_players').select('*')
-    //         .then((teams) => {
-    //             res.status(200).json(teams)
-    //         })
-    //     } catch (error) {
-    //         res.status(400).json({ error: 'Teams not found!' })
-    //     }
-    // }
-
     if (req.method === 'POST') {
         try {
             const {team_id, player_id} = req.body;

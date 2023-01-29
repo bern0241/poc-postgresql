@@ -1,21 +1,26 @@
 import React, {useState, useEffect} from 'react'
 import { useRouter } from "next/navigation";
 import RemovePlayerModal from './RemovePlayerModal';
+import ViewPlayerModal from './ViewPlayerModal';
 
 const PlayerRosterEdit = ({players}) => {
 
     const router = useRouter();
     const [deleteModal, setDeleteModal] = useState(false);
+
     const [player, setPlayer] = useState({});
+    const [openPlayerModal, setOpenPlayerModal] = useState(false);
 
     function handleModalOpen(e, _player) {
+        e.stopPropagation();
         setDeleteModal(true);
         setPlayer(_player);
     }
 
-    // const handlePlayerSelected = (id) => {
-    //     router.push(`/players/${id}`);
-    // }
+    async function handlePlayerSelect(_player) {
+        setOpenPlayerModal(true);
+        setPlayer(_player);
+    }
   
   return (
     <>
@@ -49,7 +54,7 @@ const PlayerRosterEdit = ({players}) => {
         <tbody>
 
             {players && players.map((player) => (
-                <tr class="bg-gray-000 border-b border-gray-300 hover:bg-gray-100 text-gray-600">
+                <tr onClick={() => handlePlayerSelect(player)} class="bg-gray-000 border-b border-gray-300 hover:bg-gray-100 text-gray-600">
                     <th scope="row" class="text-left px-6 py-4 font-medium whitespace-nowrap dark:text-blue-100">
                         {player.first_name} {player.last_name}
                     </th>
@@ -81,6 +86,9 @@ const PlayerRosterEdit = ({players}) => {
 </div>
 {deleteModal && (
     <RemovePlayerModal player={player} setDeleteModal={setDeleteModal} />
+)}
+{openPlayerModal && (
+    <ViewPlayerModal player={player} setOpenPlayerModal={setOpenPlayerModal} />
 )}
 </>
 

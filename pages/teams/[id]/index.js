@@ -8,7 +8,7 @@ import PlayerRoster from '@/components/teams/PlayerRoster.js'
 const TeamDetails = ({team, players}) => {
 
   useEffect(() => {
-    console.log('returned info:', team);
+    // console.log('returned info:', team);
   }, [])
 
   function setDivisionString(division) {
@@ -42,7 +42,7 @@ const TeamDetails = ({team, players}) => {
   return (
     <>
     <div class="flex items-center justify-center gap-5 relative right-[2.5rem]">
-        <TeamImage imagesrc={team.imagesrc}/>
+        <TeamImage imagesrc={team.imagesrc} editable={false}/>
         <h1 class="text-[40px]">{team.teamname}</h1>
     </div>
       <div class="mt-5 max-w-[80em] mx-auto grid grid-cols-3 gap-4 border items-center text-center">

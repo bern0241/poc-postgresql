@@ -14,7 +14,7 @@ function TeamUpdate({team, players}) {
     return (
        <>
        <div class="flex items-center justify-center gap-5 relative right-[2.5rem]">
-        <TeamImage imagesrc={team.imagesrc}/>
+        <TeamImage imagesrc={team.imagesrc} editable={true} />
         <h1 class="text-[40px]">{team.teamname}</h1>
     </div>
        <EditTeam team={team} />
