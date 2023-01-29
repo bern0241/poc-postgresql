@@ -40,7 +40,6 @@ const EditTeam = ({team}) => {
             }
 
             // console.log("NEW TEAM:", newTeam);
-            router.push('/teams');
             await fetch('http://localhost:3000/api/teams/' + team.id, {
                 method: 'PATCH',
                 headers: {
@@ -50,8 +49,8 @@ const EditTeam = ({team}) => {
             }).then(result => {
                 // var items = teams;?
                 // console.log("Items:", items);
+                router.push('/teams');
                 setTeams([...teams, newTeam]);
-                // router.push('/teams');
             })
             .catch(error => {
             console.log(error)

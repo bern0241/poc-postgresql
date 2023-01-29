@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import 'flowbite'; 
 import Image from 'next/image';
+// import Script from 'next/script'
 
 const AddPlayerButton = () => {
 
     const [players, setPlayers] = useState([]);
+    const [showDropdown, setShowDropdown] = useState(false);
 
     useEffect(() => {
         getPlayers();
@@ -21,14 +23,19 @@ const AddPlayerButton = () => {
         }
     }
 
-  return (
-    <>
-        <button id="dropdownUsersButton" data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom" class="h-[3.5rem] text-white bg-yellow-500 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800" type="button">Add Player <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-        
-        <div id="dropdownUsers" class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-gray-700">
-            
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);   
+    }
 
-        <div class="p-3">
+  return (
+    <div>
+        <button onClick={toggleDropdown} id="dropdownUsersButton" data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom" class="h-[3.5rem] text-white bg-yellow-500 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800" type="button">Add Player <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+        
+        {showDropdown && (
+
+        <div id="" class="z-10 fixed translate-x-[-3.2rem] bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+            
+        <div class="p-3 z-[100]">
       <label for="input-group-search" class="sr-only">Search</label>
       <div class="relative">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -56,7 +63,8 @@ const AddPlayerButton = () => {
             Add new user
         </a>
         </div>
-</>
+        )}
+</div>
   )
 }
 
