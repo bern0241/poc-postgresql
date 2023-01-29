@@ -4,9 +4,11 @@ import ViewPlayerModal from '@/components/teams/ViewPlayerModal.js'
 const PlayerRoster = ({players}) => {
 
     const [openPlayerModal, setOpenPlayerModal] = useState(false);
+    const [player, setPlayer] = useState({});
 
-    async function handlePlayerSelect() {
+    async function handlePlayerSelect(_player) {
         setOpenPlayerModal(true);
+        setPlayer(_player);
     }
   
   return (
@@ -66,7 +68,7 @@ const PlayerRoster = ({players}) => {
 </div>
 
 {openPlayerModal && (
-    <ViewPlayerModal setOpenPlayerModal={setOpenPlayerModal} />
+    <ViewPlayerModal player={player} setOpenPlayerModal={setOpenPlayerModal} />
 )}
 </>
 
