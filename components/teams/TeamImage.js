@@ -12,7 +12,7 @@ function TeamImage({imagesrc}) {
     <a href="#" className='group'>
         <div class='overflow-hidden rounded-lg'>
             <img 
-            alt=""
+            alt="Team Image"
             src={imagesrc ? imagesrc : "https://bit.ly/placeholder-img"}
             layout="fill"
             objectFit="cover"

@@ -2,9 +2,14 @@ import React, {useState, useEffect} from 'react'
 // import Link from 'next/link'
 import { useTeams } from '@/context/teamsContext.js';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+//components
+import DeleteModal from './DeleteModal';
 
 const TeamsList = () => {
     const router = useRouter();
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [team, setTeam] = useState(); //meant for deleting
     const [teams, setTeams] = useTeams([]);
 
     useEffect(() => {
@@ -29,22 +34,24 @@ const TeamsList = () => {
         // navigate(`/restaurants/${id}/update`);
     }
 
-    async function handleDelete(e, id) {
+    async function handleDelete(e, team) {
         e.stopPropagation();
-        try {
-            await fetch('api/teams/' + id, {
-            method: 'DELETE'
-            })
-            .then((result) => {
-                setTeams(teams.filter(team => team.id !== id))
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        setDeleteModal(true);
+        setTeam(team);
+        // try {
+        //     await fetch('api/teams/' + id, {
+        //     method: 'DELETE'
+        //     })
+        //     .then((result) => {
+        //         setTeams(teams.filter(team => team.id !== id))
+        //     })
+        //     .catch(error => {
+        //         console.log(error)
+        //     })
 
-        } catch (error) {
-        console.error(error.message);
-        }
+        // } catch (error) {
+        // console.error(error.message);
+        // }
     }
 
     function setDivisionString(division) {
@@ -76,6 +83,7 @@ const TeamsList = () => {
     }
   
   return (
+    <>
 <div class="max-w-[80em] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-blue-100 dark:text-blue-100">
         <thead class="text-xs text-white uppercase bg-blue-600 border-b border-blue-400 dark:text-white">
@@ -116,22 +124,25 @@ const TeamsList = () => {
                     {team.teammanager}
                     </td>
                     <td class="px-6 py-4">
-                    <button onClick={(e) => handleUpdate(e, team.id)} class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    <button onClick={(e) => handleUpdate(e, team.id)} class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                         Edit
                     </button>
                     </td>
                     <td class="px-6 py-4">
-                    <button onClick={(e) => handleDelete(e, team.id)} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    <button onClick={(e) => handleDelete(e, team)} class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded">
                         Delete
                     </button>
                     </td>
                 </tr>
-            ))}
-            
+            ))}            
         </tbody>
     </table>
 </div>
 
+{deleteModal && (
+    <DeleteModal team={team} setDeleteModal={setDeleteModal} />
+)}
+</>
 
   )
 }
