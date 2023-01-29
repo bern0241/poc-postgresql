@@ -12,12 +12,14 @@ const PlayerRosterEdit = ({players}) => {
 
     async function handleRemove(e, id) {
         e.stopPropagation();
+        console.log(id);
         try {
-            await fetch('api/teams/' + id, {
+            await fetch('http://localhost:3000/api/teams_players/' + id, {
             method: 'DELETE'
             })
             .then((result) => {
-                setTeams(teams.filter(team => team.id !== id))
+                console.log('success')
+                // setTeams(teams.filter(team => team.id !== id))
             })
             .catch(error => {
                 console.log(error)
@@ -79,7 +81,7 @@ const PlayerRosterEdit = ({players}) => {
                     0
                     </td>
                     <td class="px-6 py-4">
-                    <button onClick={(e) => handleRemove(e, team.id)} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    <button onClick={(e) => handleRemove(e, player.player_id)} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                         Remove
                     </button>
                     </td>

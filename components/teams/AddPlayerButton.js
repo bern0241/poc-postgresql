@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import 'flowbite'; 
 import Image from 'next/image';
-// import Script from 'next/script'
+import { useRouter } from 'next/router'
 
 const AddPlayerButton = () => {
 
     const [players, setPlayers] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
+    const router = useRouter()
+    const { id } = router.query;
 
     useEffect(() => {
         getPlayers();
@@ -25,6 +27,28 @@ const AddPlayerButton = () => {
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);   
+    }
+
+    const addPlayerToTeam = async (e, player) => {
+        setShowDropdown(false);
+        
+        const newTeamMember = {
+            player_id: player.id,
+            team_id: parseInt(id)
+        }
+        console.log(newTeamMember);
+
+        try {
+            const resp = await fetch('http://localhost:3000/api/teams_players', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newTeamMember)
+            })
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
   return (
@@ -49,7 +73,7 @@ const AddPlayerButton = () => {
         <ul class="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton">
         {players && players.map((player) => (
             <li>
-            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            <a onClick={(e) => addPlayerToTeam(e, player)} class="flex cursor-pointer items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 <Image width={500}
                     height={500} class="w-6 h-6 mr-2 rounded-full" src="/../public/images/blue-shirt.jpg" alt="Player shirt" />
                 {player.first_name} {player.last_name}
