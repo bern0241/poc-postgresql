@@ -5,6 +5,10 @@ function index() {
   const [player, setPlayer] = useState({});
   const [playerTeams, setPlayerTeams] = useState([]);
 
+  const [playerFirstName, setPlayerFirstName] = useState("");
+  const [playerLastName, setPlayerLastName] = useState("");
+  const [playerEmail, setPlayerEmail] = useState(""); 
+
   const [mainVisibility, setMainVisibility] = useState(true);
   const [visibility, setVisibility] = useState(false);
   const [visibilityUpdate, setVisibilityUpdate] = useState(false);
@@ -78,18 +82,28 @@ function index() {
     }
   };
 
+  function handleUpdate() {
+    const newPlayer = {
+      first_name: playerFirstName,
+      last_name: playerLastName,
+      email: playerEmail
+    }
+
+    updatePlayer(newPlayer);
+  }
+
   useEffect(() => {
     getPlayer();
   }, [id]);  
 
   const showForm = async () => {
-    console.log("Delete")
     setVisibility(true);
     setMainVisibility(false);
     setVisibilityUpdate(false);
   }
   const showUpdateForm = async () => {
     setVisibilityUpdate(true);
+    setMainVisibility(false);
     setVisibility(false);
   }
 
@@ -131,7 +145,7 @@ function index() {
                 </label>
               </div>
               <div class="md:w-2/3">
-                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" ref = {firstNameRef} type="text" placeholder="Jane"/>
+                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" onChange={(e) => setPlayerFirstName(e.target.value)} type="text" placeholder="Jane"/>
               </div>
             </div>
             <div class="md:flex md:items-center mb-6">
@@ -141,17 +155,17 @@ function index() {
                 </label>
               </div>
               <div class="md:w-2/3">
-                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" ref = {lastNameRef} type="text" placeholder="Doe"/>
+                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" onChange={(e) => setPlayerLastName(e.target.value)}  type="text" placeholder="Doe"/>
               </div>
             </div>
             <div class="md:flex md:items-center mb-6">
               <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" >
                   Email Address
                 </label>
               </div>
               <div class="md:w-2/3">
-                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" ref = {emailRef} type="email" placeholder="jane.doe@gmail.com"/>
+                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" onChange={(e) => setPlayerEmail(e.target.value)} type="email" placeholder="jane.doe@gmail.com"/>
               </div>
             </div>
             <div class="md:flex md:items-center">
@@ -159,7 +173,9 @@ function index() {
               <div class="md:w-2/3">
                 <button class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button"
                 onClick={() => {
-                  updatePlayer();
+                  handleUpdate();
+                  // updatePlayer();
+                  setMainVisibility(true);
                 }}>
                   Update
                 </button>
