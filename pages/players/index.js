@@ -1,8 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef} from "react";
 import Link from "next/link";
 
 function index() {
   const [players, setPlayers] = useState([]);
+  const [visibility, setVisibility] = useState(false);
+
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const emailRef = useRef();
+
   const getPlayers = async () => {
     try {
       await fetch("api/players").then(async (resp) => {
@@ -20,12 +26,14 @@ function index() {
    * email: 'john@mail.com'
    * })
    */
+  
+  //ADD NEW PLAYER
+
   const addPlayer = async (
-    // Placeholder if there is no data
     playerData = {
-      first_name: `Joe`,
-      last_name: `Doe`,
-      email: `${(Math.random() * 100).toFixed(0)}@email.com`,
+      first_name: firstNameRef.current.value,
+      last_name: lastNameRef.current.value,
+      email: emailRef.current.value,
     }
   ) => {
     console.log(playerData);
@@ -42,16 +50,21 @@ function index() {
     } catch (err) {
       console.warn(err);
     }
+    setVisibility(false);
   };
 
   useEffect(() => {
     getPlayers();
   }, []);
+
+  const showForm = async () => {
+    setVisibility(true);
+  }
   return (
     <>
       <button class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded float-right m-5" type="button"
         onClick={() => {
-          //TODO: Show add player overlay
+          showForm()
         }}>
         Add player
       </button>
@@ -91,48 +104,52 @@ function index() {
         </table>
       </div>
 
-      <div id="form" class="bg-grey-400 flex flex-col h-screen justify-center items-center invisible">
-        <form action="/send-data-here" method="post" class="w-full max-w-md border-2 p-5 m-auto mt-auto">
-          <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-              <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                First Name
-              </label>
+      <div id="add-form"  style={{display: visibility?"block":"none"}} class="bg-grey-400 flex flex-col h-screen justify-center items-center">
+          <form action="/send-data-here" method="post" class="w-full max-w-md border-2 p-5 m-auto mt-auto">
+            <div class="md:flex md:items-center mb-6">
+              <div class="md:w-1/3">
+                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                  First Name
+                </label>
+              </div>
+              <div class="md:w-2/3">
+                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" ref = {firstNameRef} type="text" placeholder="Jane"/>
+              </div>
             </div>
-            <div class="md:w-2/3">
-              <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="Jane"/>
+            <div class="md:flex md:items-center mb-6">
+              <div class="md:w-1/3">
+                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                  Last Name
+                </label>
+              </div>
+              <div class="md:w-2/3">
+                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" ref = {lastNameRef} type="text" placeholder="Doe"/>
+              </div>
             </div>
-          </div>
-          <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-              <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                Last Name
-              </label>
+            <div class="md:flex md:items-center mb-6">
+              <div class="md:w-1/3">
+                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                  Email Address
+                </label>
+              </div>
+              <div class="md:w-2/3">
+                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" ref = {emailRef} type="email" placeholder="jane.doe@gmail.com"/>
+              </div>
             </div>
-            <div class="md:w-2/3">
-              <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" value="Doe"/>
+            <div class="md:flex md:items-center">
+              <div class="md:w-1/3"></div>
+              <div class="md:w-2/3">
+                <button class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button"
+                onClick={() => {
+                  addPlayer();
+                }}>
+                  Add Player
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-              <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                Email Address
-              </label>
-            </div>
-            <div class="md:w-2/3">
-              <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="email" value="jane.doe@gmail.com"/>
-            </div>
-          </div>
-          <div class="md:flex md:items-center">
-            <div class="md:w-1/3"></div>
-            <div class="md:w-2/3">
-              <button class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-                Done
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+
     </>
   );
 }
