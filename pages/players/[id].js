@@ -13,10 +13,6 @@ function index() {
   const [visibility, setVisibility] = useState(false);
   const [visibilityUpdate, setVisibilityUpdate] = useState(false);
 
-  const firstNameRef = useRef();
-  const lastNameRef = useRef();
-  const emailRef = useRef();
-
   const router = useRouter();
   const { id } = router.query;
 
@@ -44,11 +40,7 @@ function index() {
   //UPDATE PLAYER
 
   const updatePlayer = async (
-    playerData = {
-      first_name: firstNameRef.current.value,
-      last_name: lastNameRef.current.value,
-      email: emailRef.current.value,
-    }
+    playerData = newPlayer
   ) => {
     setVisibilityUpdate(false);
     if (!id) return;
@@ -57,7 +49,7 @@ function index() {
         method: "PATCH",
         body: JSON.stringify(playerData),
       }).then((resp) => {
-        if (resp.ok) getPlayers();
+        if (resp.ok) getPlayer();
       });
     } catch (err) {
       console.warn(err);
@@ -174,7 +166,6 @@ function index() {
                 <button class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button"
                 onClick={() => {
                   handleUpdate();
-                  // updatePlayer();
                   setMainVisibility(true);
                 }}>
                   Update
