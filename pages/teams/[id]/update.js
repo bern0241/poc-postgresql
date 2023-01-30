@@ -26,8 +26,10 @@ function TeamUpdate({team, players}) {
        </>
       )
 }
-
 export default TeamUpdate
+
+
+
 
 
 export const getStaticPaths = async () => {
