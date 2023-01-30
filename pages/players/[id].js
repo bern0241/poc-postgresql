@@ -108,7 +108,7 @@ function index() {
   }
 
   return (
-    <>
+    <div class="mt-8">
       <div style={{display: mainVisibility?"block":"none"}} class="flex flex-col h-screen justify-center items-center">
       <div class="container mx-auto px-4">
         <p class="text-4xl font-semibold text-sky-800" >
@@ -203,7 +203,7 @@ function index() {
           </div>
         </div>
 
-    </>
+    </div>
   );
 }
 
