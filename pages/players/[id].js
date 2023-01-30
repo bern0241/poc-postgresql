@@ -1,11 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
 function index() {
   const [player, setPlayer] = useState({});
   const [playerTeams, setPlayerTeams] = useState([]);
 
+  const [mainVisibility, setMainVisibility] = useState(true);
+  const [visibility, setVisibility] = useState(false);
   const [visibilityUpdate, setVisibilityUpdate] = useState(false);
+
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const emailRef = useRef();
 
   const router = useRouter();
   const { id } = router.query;
@@ -54,24 +60,42 @@ function index() {
     }
 
   };
-  const deletePlayer = async () => {
+
+  //DELETE PLAYER
+
+  const deletePlayer = async (id) => {
+    console.log(id)
     if (!id) return;
     try {
       await fetch(`/api/players/${id}`, {
         method: "DELETE",
       }).then(async (resp) => {
         router.push("/players");
+        getPlayer()
       });
     } catch (err) {
       console.warn(err);
     }
   };
+
   useEffect(() => {
     getPlayer();
-  }, [id]);
+  }, [id]);  
+
+  const showForm = async () => {
+    console.log("Delete")
+    setVisibility(true);
+    setMainVisibility(false);
+    setVisibilityUpdate(false);
+  }
+  const showUpdateForm = async () => {
+    setVisibilityUpdate(true);
+    setVisibility(false);
+  }
+
   return (
     <>
-      <div class="flex flex-col h-screen justify-center items-center">
+      <div style={{display: mainVisibility?"block":"none"}} class="flex flex-col h-screen justify-center items-center">
       <div class="container mx-auto px-4">
         <p class="text-4xl font-semibold text-sky-800" >
           Name: {player.first_name} {player.last_name}
@@ -89,14 +113,16 @@ function index() {
             <p>Player is not a member of a team</p>
           )}
         </p>
-        <button onClick={deletePlayer} class="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-3 w-24" >Delete</button>
         <button onClick={() => {
-                  setVisibilityUpdate(true);
+                  showForm()
+                }}  class="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-3 w-24" >Delete</button>
+        <button onClick={() => {
+                  showUpdateForm()
                 }} class="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-3 w-24" >Update</button>
       </div>
       </div>
 
-      <div id="update-form" style={{display: visibilityUpdate?"block":"none"}} class="  flex flex-col justify-center items-center mt-8 bg-grey-400 flex flex-col h-screen justify-center items-cente">
+      <div id="update-form" style={{display: visibilityUpdate?"block":"none"}} class="flex flex-col justify-center items-center mt-8 bg-grey-400 flex flex-col h-screen justify-center items-cente">
           <form action="/send-data-here" method="post" class="w-full max-w-md border-2 p-5 m-auto mt-auto">
           <div class="md:flex md:items-center mb-6">
               <div class="md:w-1/3">
@@ -142,6 +168,24 @@ function index() {
           </form>
         </div>
 
+        <div style={{display: visibility? "block":"none" }} class="flex flex-col justify-center items-center mt-8 bg-grey-400 flex flex-col h-screen justify-center items-center ml-8 pl-8">
+          <div class="text-2xl font-semibold text-sky-800">
+            Do you really want to delete this player?
+          </div>
+          <div >
+            <button 
+              onClick={() => {
+                setVisibility(false);
+                setMainVisibility(true);
+              }} class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-5" type="button">
+                Cancel
+            </button>
+            <button 
+              onClick={deletePlayer} class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-5" type="button">
+                Delete
+            </button>
+          </div>
+        </div>
 
     </>
   );
