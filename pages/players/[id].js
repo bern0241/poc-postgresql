@@ -28,7 +28,6 @@ function index() {
    * })
    */
   const updatePlayer = async (
-    // Placeholder if there is no data
     playerData = {
       first_name: `Joe`,
       last_name: `Doe`,
@@ -64,12 +63,13 @@ function index() {
   }, [id]);
   return (
     <>
-      <div>
-        <p>
+      <div class="flex flex-col h-screen justify-center items-center">
+      <div class="container mx-auto px-4">
+        <p class="text-4xl font-semibold text-sky-800" >
           Name: {player.first_name} {player.last_name}
         </p>
-        <p>Email: {player.email}</p>
-        <p>
+        <p class="text-2xl font-semibold text-sky-800" >Email: {player.email}</p>
+        <p class="text-2xl font-semibold text-sky-800" >
           Teams:{" "}
           {playerTeams ? (
             playerTeams.map((team) => (
@@ -81,9 +81,11 @@ function index() {
             <p>Player is not a member of a team</p>
           )}
         </p>
-        <button onClick={deletePlayer}>Delete</button>
-        <button onClick={() => updatePlayer()}>Update</button>
+        <button onClick={deletePlayer} class="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-3 w-24" >Delete</button>
+        <button onClick={() => updatePlayer()} class="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-3 w-24" >Update</button>
       </div>
+      </div>
+
     </>
   );
 }
