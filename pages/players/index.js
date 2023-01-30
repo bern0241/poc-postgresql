@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef} from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function index() {
   const [players, setPlayers] = useState([]);
@@ -8,6 +9,9 @@ function index() {
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
+
+  const router = useRouter();
+  const { id } = router.query;
 
   const getPlayers = async () => {
     try {
@@ -26,7 +30,7 @@ function index() {
    * email: 'john@mail.com'
    * })
    */
-  
+
   //ADD NEW PLAYER
 
   const addPlayer = async (
@@ -52,6 +56,23 @@ function index() {
     }
     setVisibility(false);
   };
+
+    //DELETE PLAYER
+
+    const deletePlayer = async (id) => {
+      console.log(id)
+      if (!id) return;
+      try {
+        await fetch(`/api/players/${id}`, {
+          method: "DELETE",
+        }).then(async (resp) => {
+          router.push("/players");
+          getPlayers();
+        });
+      } catch (err) {
+        console.warn(err);
+      }
+    };
 
   useEffect(() => {
     getPlayers();
@@ -94,7 +115,7 @@ function index() {
                   <button class="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-3 w-24" type="button">
                     Edit
                   </button>
-                  <button class="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-3 w-24" type="button">
+                  <button onClick= {()=>{deletePlayer(player.id);}} class="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-3 w-24" type="button">
                     Delete
                   </button>
                 </td>
