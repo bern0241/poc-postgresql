@@ -12,23 +12,11 @@ const knex = require('knex')({
 
 export default async function handler(req, res) {
     
-    if (req.method === 'GET') {
-        try {
-            await knex.from('teams').select('*')
-            .then((teams) => {
-                res.status(200).json(teams)
-            })
-        } catch (error) {
-            res.status(400).json({ error: 'Teams not found!' })
-        }
-    }
-
     if (req.method === 'POST') {
         try {
-            const {team} = req.body;
-            await knex('teams')
-                    .insert(team)
-                    // .insert({ first_name: 'Brian', last_name: 'Griffin', email: 'brian@email.com' })
+            const {team_id, player_id} = req.body;
+            await knex('teams_players')
+                    .insert({ team_id: team_id, player_id: player_id })
             res.status(200).json({ team: "THIS WORKS!" })
         } catch (error) {
             console.log(error);
