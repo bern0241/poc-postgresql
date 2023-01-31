@@ -308,10 +308,8 @@ function index() {
               {players.map((player) => (
                 <tr
                   key={player.id}
-                  onClick={() => handlePlayerSelected(player.id)}
-                  className="hover:cursor-pointer"
                 >
-                  <td className="text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
+                  <td onClick={() => handlePlayerSelected(player.id)} className="hover:cursor-pointer text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
                     {player.first_name} {player.last_name}
                   </td>
                   <td className="text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
