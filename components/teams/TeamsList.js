@@ -84,52 +84,52 @@ const TeamsList = () => {
   
   return (
     <>
-<div class="max-w-[80em] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-blue-100 dark:text-blue-100">
-        <thead class="text-xs text-white uppercase bg-blue-600 border-b border-blue-400 dark:text-white">
+<div className="w-full mx-auto relative overflow-x-auto">
+    <table className="w-full border-collapse text-sm text-left text-blue-100 dark:text-blue-100 shadow-md border border-gray-600 bg-gray-700">
+        <thead className="text-white text-md font-medium border-collapse border border-gray-600 bg-gray-700">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Team name
+                <th scope="col" className="px-6 py-3">
+                    Team Name
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Division
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Color
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                     Team Manager
                 </th>
-                <th scope="col" class="px-6 py-3 w-5">
+                <th scope="col" className="px-6 py-3 w-5">
                     
                 </th>
-                <th scope="col" class="px-6 py-3 w-5">
+                <th scope="col" className="px-6 py-3 w-5">
                     
                 </th>
             </tr>
         </thead>
         <tbody>
             {teams && teams.map((team) => (
-                <tr onClick={() => handleTeamSelected(team.id)} class="bg-blue-600 border-b border-blue-400 hover:bg-blue-500">
-                    <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                <tr key={team.id} onClick={() => handleTeamSelected(team.id)} className="bg-gray-800 border-b border-gray-600 hover:bg-gray-700 hover:cursor-pointer">
+                    <th scope="row" className="px-6 py-4 font-medium text-white/75 whitespace-nowrap">
                         {team.teamname}
                     </th>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4 text-white/75">
                         {setDivisionString(team.division)}
                     </td>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4 text-white/75">
                         {team.homecolor ? team.homecolor : 'No color set'}
                     </td>
-                    <td class="px-6 py-4">
+                    <td className="px-6 py-4 text-white/75">
                     {team.teammanager}
                     </td>
-                    <td class="px-6 py-4">
-                    <button onClick={(e) => handleUpdate(e, team.id)} class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    <td className="px-6 py-4">
+                    <button onClick={(e) => handleUpdate(e, team.id)} className="bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-2 px-4 rounded">
                         Edit
                     </button>
                     </td>
-                    <td class="px-6 py-4">
-                    <button onClick={(e) => handleDelete(e, team)} class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded">
+                    <td className="px-6 py-4">
+                    <button onClick={(e) => handleDelete(e, team)} className="bg-red-500 hover:bg-red-400 text-red-900 font-bold py-2 px-4 rounded">
                         Delete
                     </button>
                     </td>

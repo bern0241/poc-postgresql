@@ -36,19 +36,19 @@ const DeleteTeamModal = ({ setDeleteModal, team }) => {
       <div
         id="popup-modal"
         tabindex="-1"
-        class="z-[20] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        className="z-[20] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       >
-        <div class="z-[20] relative w-full h-full max-w-md md:h-auto">
-          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div className="z-[20] relative w-full h-full max-w-md md:h-auto">
+          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button
               onClick={(e) => handleCloseModal(e)}
               type="button"
-              class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+              className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
               data-modal-hide="popup-modal"
             >
               <svg
                 aria-hidden="true"
-                class="w-5 h-5"
+                className="w-5 h-5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -59,13 +59,13 @@ const DeleteTeamModal = ({ setDeleteModal, team }) => {
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              <span class="sr-only">Close modal</span>
+              <span className="sr-only">Close modal</span>
             </button>
-            <div class="p-6 text-center">
+            <div className="p-6 text-center">
               {team.imagesrc ? (
-                // <Image class='mx-auto flex justify-center' src={team.imagesrc} width={100} height={100}/>
+                // <Image className='mx-auto flex justify-center' src={team.imagesrc} width={100} height={100}/>
                 <img
-                  class="mx-auto flex justify-center"
+                  className="mx-auto flex justify-center"
                   layout="fill"
                   objectFit="cover"
                   src={team.imagesrc}
@@ -74,23 +74,23 @@ const DeleteTeamModal = ({ setDeleteModal, team }) => {
                 />
               ) : (
                 <Image
-                  class="mx-auto flex justify-center"
+                  className="mx-auto flex justify-center"
                   src="/../public/images/neutral-shirt.jpg"
                   width={100}
                   height={100}
                 />
               )}
-              {/* <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> */}
-              <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              {/* <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> */}
+              <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                 Are you sure you want to delete this team?
                 <br />
               </h3>
-              <p class="text-[2rem] relative bottom-4">{team.teamname}</p>
+              <p className="text-[2rem] relative bottom-4">{team.teamname}</p>
               <button
                 onClick={(e) => deleteItem()}
                 data-modal-hide="popup-modal"
                 type="button"
-                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
               >
                 Yes, I'm sure
               </button>
@@ -98,7 +98,7 @@ const DeleteTeamModal = ({ setDeleteModal, team }) => {
                 onClick={(e) => handleCloseModal(e)}
                 data-modal-hide="popup-modal"
                 type="button"
-                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
               >
                 No, cancel
               </button>
@@ -108,7 +108,7 @@ const DeleteTeamModal = ({ setDeleteModal, team }) => {
       </div>
       <div
         onClick={(e) => handleCloseModal(e)}
-        class="z-[10] opacity-50 fixed top-0 left-0 w-[100%] h-[100%] bg-gray-900"
+        className="z-[10] opacity-50 fixed top-0 left-0 w-[100%] h-[100%] bg-gray-900"
       />
     </>
   );

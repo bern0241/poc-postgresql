@@ -2,7 +2,7 @@ import React from 'react'
 
 const Header = ({headerText}) => {
   return (
-    <h1 class="text-center text-[50px]">
+    <h1 className="font-bold text-4xl text-cyan-500 mt-14">
         {headerText}
     </h1>
   )
