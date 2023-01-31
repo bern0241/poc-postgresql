@@ -138,16 +138,16 @@ function index() {
   return (
     <>
       <div className="mx-auto w-5/6 flex flex-col">
-      <Header headerText="Players" />
-        {/* <button
-        className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded float-right m-5"
-        type="button"
-        onClick={() => {
-          showForm();
-        }}
-      >
-        Add player
-      </button> */}
+        <Header headerText="Players" />
+        <button
+          className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded float-right m-5"
+          type="button"
+          onClick={() => {
+            showForm();
+          }}
+        >
+          Add player
+        </button>
 
         <div
           id="update-form"
@@ -307,7 +307,7 @@ function index() {
             <tbody>
               {players.map((player) => (
                 <tr
-                key={player.id}
+                  key={player.id}
                   onClick={() => handlePlayerSelected(player.id)}
                   className="hover:cursor-pointer"
                 >
