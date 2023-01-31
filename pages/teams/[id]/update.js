@@ -15,7 +15,7 @@ function TeamUpdate({ team, players }) {
       <div className="mx-auto w-5/6 flex flex-col">
         <div className="flex flex-col items-center justify-center gap-6 relative">
           <Header headerText={team.teamname} />
-          <TeamImage imagesrc={team.imagesrc} editable={false} />
+          <TeamImage imagesrc={team.imagesrc} editable={true} />
         </div>
         <EditTeam team={team} />
         <div class="flex justify-between mb-8 items-end">

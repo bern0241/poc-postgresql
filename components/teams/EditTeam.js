@@ -126,7 +126,7 @@ const EditTeam = ({team}) => {
   </div>
     {errorMessage && (
         <div className="flex justify-center mx-auto">
-        <p className="text-red-500">Please fillout all fields to edit the team.</p>
+        <p className="text-red-500">Please fill out all fields to edit the team.</p>
         </div>
     )}
 
