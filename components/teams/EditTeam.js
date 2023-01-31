@@ -62,24 +62,24 @@ const EditTeam = ({team}) => {
   }
 
   return (
-    <div className="my-4 border">
+    <div className="my-8">
     <form className="">
     <div className="p-5 gap-3 grid justify-center grid-cols-2 lg:grid-cols-6 mx-auto max-w-[80em]">
 
     <div className="">
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+      <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" for="grid-first-name">
         Team Name
       </label>
-      <input value={teamName} onChange={(e) => setTeamName(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
+      <input value={teamName} onChange={(e) => setTeamName(e.target.value)} className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500" id="grid-last-name" type="text" placeholder="" />
       {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
     </div>
 
     <div className="">
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+      <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" for="grid-state">
         Division
       </label>
       <div className="relative">
-        <select value={division} onChange={(e) => setDivision(e.target.value)} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+        <select value={division} onChange={(e) => setDivision(e.target.value)} className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500" id="grid-state">
         <option hidden>Choose Division</option>  
           <option value="D">D - Recreational</option>
           <option value="C">C - Recreational</option>
@@ -96,29 +96,29 @@ const EditTeam = ({team}) => {
 
     {/* <div className="w-full md:w-1/4 px-3"> */}
     <div className="">
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+      <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" for="grid-last-name">
         Color
       </label>
-      <input value={color} onChange={(e) => setColor(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
+      <input value={color} onChange={(e) => setColor(e.target.value)} className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500" id="grid-last-name" type="text" placeholder="" />
     </div>
 
     {/* <div className="w-full sm:w-auto"> */}
     <div className="">
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+      <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" for="grid-last-name">
         Team Manager
       </label>
-      <input value={teamManager} onChange={(e) => setTeamManager(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
+      <input value={teamManager} onChange={(e) => setTeamManager(e.target.value)} className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500" id="grid-last-name" type="text" placeholder="" />
     </div>
 
     <div className="">
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+      <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" for="grid-last-name">
         Manager Email
       </label>
-      <input value={managerEmail} onChange={(e) => setManagerEmail(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="" />
+      <input value={managerEmail} onChange={(e) => setManagerEmail(e.target.value)} className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500" id="grid-last-name" type="text" placeholder="" />
     </div>
 
     <div className="flex justify-end ">
-    <button onClick={(e) => handleEdit(e)} className="bg-yellow-500 hover:bg-yellow-700 h-11 mt-[24px] w-[12rem] text-white font-bold rounded">
+    <button onClick={(e) => handleEdit(e)} className="bg-yellow-500 hover:bg-yellow-400 h-11 mt-[24px] w-[12rem] text-yellow-900 font-bold rounded">
     Edit Team
     </button>
     </div>

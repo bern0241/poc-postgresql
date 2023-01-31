@@ -1,63 +1,59 @@
-import React, {useState, useEffect} from 'react'
-import { useRouter } from 'next/router';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 //components
-import Header from '@/components/teams/Header'
-import EditTeam from '@/components/teams/EditTeam'
-import PlayerRosterEdit from '@/components/teams/PlayerRosterEdit';
-import AddPlayerButton from '@/components/teams/AddPlayerButton';
-import TeamImage from '@/components/teams/TeamImage';
+import Header from "@/components/teams/Header";
+import EditTeam from "@/components/teams/EditTeam";
+import PlayerRosterEdit from "@/components/teams/PlayerRosterEdit";
+import AddPlayerButton from "@/components/teams/AddPlayerButton";
+import TeamImage from "@/components/teams/TeamImage";
 
-function TeamUpdate({team, players}) {
+function TeamUpdate({ team, players }) {
+  const router = useRouter();
 
-    const router = useRouter();
-  
-    return (
-       <>
-       <div class="flex items-center justify-center gap-5 relative right-[2.5rem]">
-        <TeamImage imagesrc={team.imagesrc} editable={true} />
-        <h1 class="text-[40px]">{team.teamname}</h1>
-    </div>
-       <EditTeam team={team} />
-       <div class="flex justify-center gap-5 items-center">
-        <h2 class="mt-5 text-center text-[2rem] mb-3">Player Roster</h2>
-        <AddPlayerButton players={players} />
-       </div>
-       <PlayerRosterEdit players={players} />
-       </>
-      )
+  return (
+    <>
+      <div className="mx-auto w-5/6 flex flex-col">
+        <div className="flex flex-col items-center justify-center gap-6 relative">
+          <Header headerText={team.teamname} />
+          <TeamImage imagesrc={team.imagesrc} editable={false} />
+        </div>
+        <EditTeam team={team} />
+        <div class="flex justify-between mb-8 items-end">
+          <Header headerText="Player Roster" />
+          <AddPlayerButton players={players} />
+        </div>
+        <PlayerRosterEdit players={players} />
+      </div>
+    </>
+  );
 }
-export default TeamUpdate
-
-
-
-
+export default TeamUpdate;
 
 export const getStaticPaths = async () => {
-    const res = await fetch('http://localhost:3000/api/teams');
-    const data = await res.json();
-  
-    const paths = data.map(team => {
-      return {
-        params: { id: team.id.toString() }
-      }
-    })
-  
-    return {
-      paths: paths,
-      fallback: false //will show 404 page
-    }
-  }
-  
+  const res = await fetch("http://localhost:3000/api/teams");
+  const data = await res.json();
 
-  export const getStaticProps = async (context) => {
-    const id = context.params.id;
-    const res = await fetch('http://localhost:3000/api/teams/' + id);
-    const data = await res.json();
-  
+  const paths = data.map((team) => {
     return {
-      props: { 
-        team: data.data.team, 
-        players: data.data.players, 
-      }
-    }
-  }
+      params: { id: team.id.toString() },
+    };
+  });
+
+  return {
+    paths: paths,
+    fallback: false, //will show 404 page
+  };
+};
+
+export const getStaticProps = async (context) => {
+  const id = context.params.id;
+  const res = await fetch("http://localhost:3000/api/teams/" + id);
+  const data = await res.json();
+
+  return {
+    props: {
+      team: data.data.team,
+      players: data.data.players,
+    },
+  };
+};
