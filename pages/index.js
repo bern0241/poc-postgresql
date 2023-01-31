@@ -15,7 +15,19 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      <main>This is a description.</main>
+      <main className="mx-auto w-full md:w-4/6 p-16 text-white leading-loose h-screen md:border-l md:border-gray-700">
+        <h1 className="font-bold text-4xl text-cyan-500 mb-4">Summary</h1>
+        <p>The <b className="text-cyan-500">objective</b> of this proof of concept is to demonstrate our ability to:</p>
+        <ul className="marker:text-cyan-500 list-outside list-disc mt-4 mb-4 ml-8">
+          <li><b>Create</b> a PostgreSQL database;</li>
+          <li><b>Connect</b> to a PostgreSQL database;</li>
+          <li><b>Query</b> on a PostgreSQL database.</li>
+          <li><b>Style</b> with Tailwind CSS.</li>
+        </ul>
+        <h2 className="font-medium text-2xl text-cyan-500 mt-8 mb-2">Technologies</h2>
+        <p>Technologies used include <b>Next.js</b>, <b>Knex.js</b>, and <b>Tailwind CSS</b>.</p>
+        <p>Our PostgreSQL database was hosted using <b>Supabase</b>.</p>
+      </main>
     </>
   );
 }
