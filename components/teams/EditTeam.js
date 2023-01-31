@@ -64,7 +64,7 @@ const EditTeam = ({team}) => {
   return (
     <div className="my-8">
     <form className="">
-    <div className="p-5 gap-3 grid justify-center grid-cols-2 lg:grid-cols-6 mx-auto max-w-[80em]">
+    <div className="gap-3 grid justify-center grid-cols-2 lg:grid-cols-6 mx-auto w-full">
 
     <div className="">
       <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" for="grid-first-name">
