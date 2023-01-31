@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef} from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Header from "@/components/teams/Header";
 
 function index() {
   const [players, setPlayers] = useState([]);
@@ -11,7 +12,7 @@ function index() {
 
   const [playerFirstName, setPlayerFirstName] = useState("");
   const [playerLastName, setPlayerLastName] = useState("");
-  const [playerEmail, setPlayerEmail] = useState(""); 
+  const [playerEmail, setPlayerEmail] = useState("");
 
   const firstNameRef = useRef();
   const lastNameRef = useRef();
@@ -87,14 +88,13 @@ function index() {
     } catch (err) {
       console.warn(err);
     }
-
   };
   function handleUpdate() {
     const newPlayer = {
       first_name: playerFirstName,
       last_name: playerLastName,
-      email: playerEmail
-    }
+      email: playerEmail,
+    };
 
     updatePlayer(newPlayer);
   }
@@ -102,14 +102,14 @@ function index() {
   //DELETE PLAYER
 
   const deletePlayer = async (id) => {
-    console.log(id)
+    console.log(id);
     if (!id) return;
     try {
       await fetch(`/api/players/${id}`, {
         method: "DELETE",
       }).then(async (resp) => {
         router.push("/players");
-        getPlayers()
+        getPlayers();
       });
     } catch (err) {
       console.warn(err);
@@ -124,67 +124,97 @@ function index() {
     setVisibility(true);
     setMainVisibility(false);
     setVisibilityUpdate(false);
-  }
+  };
   const showUpdateForm = async () => {
     setVisibilityUpdate(true);
     setMainVisibility(false);
     setVisibility(false);
-  }
+  };
+
+  const handlePlayerSelected = (id) => {
+    router.push(`/players/${id}`);
+  };
 
   return (
     <>
+      <div className="mx-auto w-5/6 flex flex-col">
+        <Header headerText="Players" />
+        <button
+          className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded float-right m-5"
+          type="button"
+          onClick={() => {
+            showForm();
+          }}
+        >
+          Add player
+        </button>
 
-      <div class="text-xl bg-blue-100 border text-left px-5 py-3 text-bold " >
-        <p>PLAYERS </p>
-      </div>
-
-      <button class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded float-right m-5" type="button"
-        onClick={() => {
-          showForm();
-        }}>
-        Add player
-      </button>
-
-      <div id="update-form" style={{display: visibilityUpdate?"block":"none"}} class="flex flex-col justify-center items-center mt-8 bg-grey-400 flex flex-col h-screen justify-center items-cente">
-          <form action="/send-data-here" method="post" class="w-full max-w-md border-2 p-5 m-auto mt-auto">
-          <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+        <div
+          id="update-form"
+          style={{ display: visibilityUpdate ? "block" : "none" }}
+          className="flex flex-col justify-center items-center mt-8 bg-grey-400 flex flex-col justify-center items-center"
+        >
+          <form
+            action="/send-data-here"
+            method="post"
+            className="w-full max-w-md border-2 p-5 m-auto mt-auto"
+          >
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label className="block text-gray-500 font-bold md:text-right px-6 py-3">
                   First Name
                 </label>
               </div>
-              <div class="md:w-2/3">
-                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" onChange={(e) => setPlayerFirstName(e.target.value)} type="text" placeholder="Jane"/>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  onChange={(e) => setPlayerFirstName(e.target.value)}
+                  type="text"
+                  placeholder="Jane"
+                />
               </div>
             </div>
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                   Last Name
                 </label>
               </div>
-              <div class="md:w-2/3">
-                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" onChange={(e) => setPlayerLastName(e.target.value)}  type="text" placeholder="Doe"/>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  onChange={(e) => setPlayerLastName(e.target.value)}
+                  type="text"
+                  placeholder="Doe"
+                />
               </div>
             </div>
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" >
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                   Email Address
                 </label>
               </div>
-              <div class="md:w-2/3">
-                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" onChange={(e) => setPlayerEmail(e.target.value)} type="email" placeholder="jane.doe@gmail.com"/>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  onChange={(e) => setPlayerEmail(e.target.value)}
+                  type="email"
+                  placeholder="jane.doe@gmail.com"
+                />
               </div>
             </div>
-            <div class="md:flex md:items-center">
-              <div class="md:w-1/3"></div>
-              <div class="md:w-2/3">
-                <button class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button"
-                onClick={() => {
-                  handleUpdate();
-                  setMainVisibility(true);
-                }}>
+            <div className="md:flex md:items-center">
+              <div className="md:w-1/3"></div>
+              <div className="md:w-2/3">
+                <button
+                  className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                  type="button"
+                  onClick={() => {
+                    handleUpdate();
+                    setMainVisibility(true);
+                  }}
+                >
                   Update
                 </button>
               </div>
@@ -192,45 +222,71 @@ function index() {
           </form>
         </div>
 
-        <div id="add-form"  style={{display: visibility?"block":"none"}} class="bg-grey-400 flex flex-col h-screen justify-center items-center">
-          <form action="/send-data-here" method="post" class="w-full max-w-md border-2 p-5 m-auto mt-auto">
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+        <div
+          id="add-form"
+          style={{ display: visibility ? "block" : "none" }}
+          className="bg-grey-400 flex flex-col h-screen justify-center items-center"
+        >
+          <form
+            action="/send-data-here"
+            method="post"
+            className="w-full max-w-md border-2 p-5 m-auto mt-auto"
+          >
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                   First Name
                 </label>
               </div>
-              <div class="md:w-2/3">
-                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" ref = {firstNameRef} type="text" placeholder="Jane"/>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  ref={firstNameRef}
+                  type="text"
+                  placeholder="Jane"
+                />
               </div>
             </div>
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                   Last Name
                 </label>
               </div>
-              <div class="md:w-2/3">
-                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" ref = {lastNameRef} type="text" placeholder="Doe"/>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  ref={lastNameRef}
+                  type="text"
+                  placeholder="Doe"
+                />
               </div>
             </div>
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
+                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                   Email Address
                 </label>
               </div>
-              <div class="md:w-2/3">
-                <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" ref = {emailRef} type="email" placeholder="jane.doe@gmail.com"/>
+              <div className="md:w-2/3">
+                <input
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  ref={emailRef}
+                  type="email"
+                  placeholder="jane.doe@gmail.com"
+                />
               </div>
             </div>
-            <div class="md:flex md:items-center">
-              <div class="md:w-1/3"></div>
-              <div class="md:w-2/3">
-                <button class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button"
-                onClick={() => {
-                  addPlayer();
-                }}>
+            <div className="md:flex md:items-center">
+              <div className="md:w-1/3"></div>
+              <div className="md:w-2/3">
+                <button
+                  className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                  type="button"
+                  onClick={() => {
+                    addPlayer();
+                  }}
+                >
                   Add Player
                 </button>
               </div>
@@ -238,59 +294,85 @@ function index() {
           </form>
         </div>
 
-        <div class="bg-grey-400 flex flex-col justify-center items-center mt-8"> 
-          <table>
+        <div className="mx-auto w-full flex flex-col justify-center items-center mt-14">
+          <table className="w-full text-sm text-white/75 border-collapse border border-gray-600 shadow-md">
             <thead>
-              <tr class="">
-                <th class="text-xl bg-blue-100 border text-left px-5 py-3" >Full Name</th>
-                <th class="text-xl bg-blue-100 border text-left px-5 py-3">Email</th>
-                <th class="text-xl bg-blue-100 border text-left px-5 py-3"></th>
+              <tr className="bg-gray-700 text-md font-bold">
+                <th className="text-white text-left px-5 py-3 ">Full Name</th>
+                <th className="text-white text-left px-5 py-3 ">Email</th>
+                <th className="text-left px-5 py-3"></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {players.map((player) => (
-              <tr>
-                <td class="text-lg border px-5 py-3" >
-                  <Link href={`/players/${player.id}`}>
+                <tr
+                  key={player.id}
+                  onClick={() => handlePlayerSelected(player.id)}
+                  className="hover:cursor-pointer"
+                >
+                  <td className="text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
                     {player.first_name} {player.last_name}
-                  </Link>
-                </td>
-                <td class="text-lg border px-5 py-3" >
+                  </td>
+                  <td className="text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
                     {player.email}
-                </td>
-                <td class="text-lg border px-5 py-3" >
-                  <button onClick= {()=>{showUpdateForm() }} class="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-3 w-24" type="button">
-                    Edit
-                  </button>
-                  <button onClick= {()=>{ deletePlayer(player.id);}} class="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-3 w-24" type="button">
-                    Delete
-                  </button>
-                </td>
-              </tr>
+                  </td>
+                  <td className="text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
+                    <button
+                      onClick={() => {
+                        showUpdateForm();
+                      }}
+                      className="bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-2 px-4 rounded"
+                      type="button"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                  <td className="text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
+                    <button
+                      onClick={() => {
+                        deletePlayer(player.id);
+                      }}
+                      className="bg-red-500 hover:bg-red-400 text-red-900 font-bold py-2 px-4 rounded"
+                      type="button"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>
         </div>
 
-        <div style={{display: deleteVisibility? "block":"none" }} class="flex flex-col justify-center items-center mt-8 bg-grey-400 flex flex-col h-screen justify-center items-center ml-8 pl-8">
-          <div class="text-2xl font-semibold text-sky-800">
+        <div
+          style={{ display: deleteVisibility ? "block" : "none" }}
+          className="flex flex-col justify-center items-center mt-8 bg-grey-400 flex flex-col h-screen justify-center items-center ml-8 pl-8"
+        >
+          <div className="text-2xl font-semibold text-sky-800">
             Do you really want to delete this player?
           </div>
-          <div >
-            <button 
+          <div>
+            <button
               onClick={() => {
                 setVisibility(false);
                 setMainVisibility(true);
-              }} class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-5" type="button">
-                Cancel
+              }}
+              className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-5"
+              type="button"
+            >
+              Cancel
             </button>
-            <button 
-              onClick={deletePlayer} class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-5" type="button">
-                Delete
+            <button
+              onClick={deletePlayer}
+              className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-5"
+              type="button"
+            >
+              Delete
             </button>
           </div>
         </div>
-
+      </div>
     </>
   );
 }

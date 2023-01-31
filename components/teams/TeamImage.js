@@ -61,8 +61,8 @@ function TeamImage({imagesrc, editable}) {
 
   if (editable) {
     return (
-      <div class='group overflow-hidden rounded-lg'>
-          <input class='hidden' id='file' type="file" multiple accept={"image/*"} 
+      <div className='group overflow-hidden rounded-lg'>
+          <input className='hidden' id='file' type="file" multiple accept={"image/*"} 
             onChange={(e) => setImage(e.target.files[0])}/>
               <label for='file'>
               <img 
@@ -78,7 +78,7 @@ function TeamImage({imagesrc, editable}) {
     )
   } else {
     return (
-      <div class='group overflow-hidden rounded-lg'>
+      <div className='group overflow-hidden rounded-lg'>
               <img 
               alt="Team Image"
               src={imagesrc ? imagesrc : "https://bit.ly/placeholder-img"}
