@@ -40,10 +40,14 @@ function index() {
 
   //UPDATE PLAYER
 
+  function toggleState() {
+    setVisibility(value => !value);
+  }
+
   const updatePlayer = async (
     playerData = newPlayer
   ) => {
-    setVisibilityUpdate(false);
+    toggleState();
     if (!id) return;
     try {
       await fetch(`/api/players/${id}`, {
@@ -101,7 +105,7 @@ function index() {
   }
 
   return (
-    <div className="mt-8">
+    <div className="mx-auto w-5/6 flex flex-col">
       <div style={{display: mainVisibility?"block":"none"}} className="flex flex-col h-screen justify-center items-center">
       <div className="mx-auto px-4">
         <div className="text-4xl font-semibold text-sky-800" >
@@ -164,12 +168,20 @@ function index() {
             <div className="md:flex md:items-center">
               <div className="md:w-1/3"></div>
               <div className="md:w-2/3">
-                <button className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button"
+                <button className="mr-3 shadow bg-yellow-400 hover:bg-yellow-300 focus:shadow-outline focus:outline-none text-yellow-900 font-bold py-2 px-4 rounded" type="button"
                 onClick={() => {
                   handleUpdate();
                   setMainVisibility(true);
                 }}>
                   Update
+                </button>
+                <button className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-red-900 font-bold py-2 px-4 rounded" type="button"
+                onClick={() => {
+                  toggleState();
+                  setMainVisibility(true);
+                  getPlayer();
+                }}>
+                  Cancel
                 </button>
               </div>
             </div>
@@ -185,11 +197,11 @@ function index() {
               onClick={() => {
                 setVisibility(false);
                 setMainVisibility(true);
-              }} className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-5" type="button">
+              }} className="shadow bg-white hover:bg-gray-200 focus:shadow-outline focus:outline-none text-black font-bold py-2 px-4 rounded m-5" type="button">
                 Cancel
             </button>
             <button 
-              onClick={deletePlayer} className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-5" type="button">
+              onClick={deletePlayer} className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-red-900 font-bold py-2 px-4 rounded m-5" type="button">
                 Delete
             </button>
           </div>
