@@ -22,8 +22,8 @@ function index() {
     try {
       await fetch(`/api/players/${id}`).then(async (resp) => {
         const response = await resp.json();
-        setPlayer(response.player);
-        setPlayerTeams(response.playerTeams);
+        setPlayer(response.data.player);
+        setPlayerTeams(response.data.teams);
       });
     } catch (err) {
       console.warn(err);
@@ -105,23 +105,22 @@ function index() {
         style={{ display: mainVisibility ? "block" : "none" }}
         className="flex flex-col h-screen justify-center items-center"
       >
-        <div className="mx-auto px-4">
-          <div className="text-4xl font-semibold text-sky-800">
-            <Header headerText={`${player.first_name} ${player.last_name}`} />
-          </div>
-          <p className="text-2xl font-semibold text-sky-800">
+        <div className="mx-auto">
+          <Header headerText={`${player.first_name} ${player.last_name}`} />
+
+          <p className="text-sm font-semibold text-white">
             Email: {player.email}
           </p>
-          <div className="text-2xl font-semibold text-sky-800">
-            Teams:{" "}
+          <div className="mt-8 text-white/75 mb-4">
+            <h1 className="font-bold text-2xl text-cyan-500">Teams</h1>
             {playerTeams ? (
               playerTeams.map((team) => (
-                <div key={player.id}>
+                <div key={player.id} className="text-md font-semibold text-white/75">
                   <p>{team.teamname}</p>
                 </div>
               ))
             ) : (
-              <p>Player is not a member of a team</p>
+              <p>Player is not a member of a team.</p>
             )}
           </div>
           <button
