@@ -158,7 +158,7 @@ function index() {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500"
                   onChange={(e) => setPlayerFirstName(e.target.value)}
                   type="text"
                   placeholder="Jane"
@@ -173,7 +173,7 @@ function index() {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500"
                   onChange={(e) => setPlayerLastName(e.target.value)}
                   type="text"
                   placeholder="Doe"
@@ -188,7 +188,7 @@ function index() {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500"
                   onChange={(e) => setPlayerEmail(e.target.value)}
                   type="email"
                   placeholder="jane.doe@gmail.com"
@@ -239,7 +239,7 @@ function index() {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500"
                   ref={firstNameRef}
                   type="text"
                   placeholder="Jane"
@@ -254,7 +254,7 @@ function index() {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500"
                   ref={lastNameRef}
                   type="text"
                   placeholder="Doe"
@@ -269,7 +269,7 @@ function index() {
               </div>
               <div className="md:w-2/3">
                 <input
-                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500"
                   ref={emailRef}
                   type="email"
                   placeholder="jane.doe@gmail.com"
