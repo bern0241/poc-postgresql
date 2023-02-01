@@ -5,7 +5,7 @@ import Header from "@/components/teams/Header";
 
 function index() {
   const [players, setPlayers] = useState([]);
-  const [visibility, setVisibility] = useState(false);
+  const [visibility, setVisibility] = useState(true);
   const [deleteVisibility, setDeleteVisibility] = useState(false);
   const [mainVisibility, setMainVisibility] = useState(false);
   const [visibilityUpdate, setVisibilityUpdate] = useState(false);
@@ -13,13 +13,14 @@ function index() {
   const [playerFirstName, setPlayerFirstName] = useState("");
   const [playerLastName, setPlayerLastName] = useState("");
   const [playerEmail, setPlayerEmail] = useState("");
+  const [id, setId] = useState("");
 
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
 
   const router = useRouter();
-  const { id } = router.query;
+  
 
   const getPlayers = async () => {
     try {
@@ -62,7 +63,7 @@ function index() {
     } catch (err) {
       console.warn(err);
     }
-    setVisibility(false);
+    setVisibility(true);
     setMainVisibility(true);
   };
 
@@ -76,14 +77,13 @@ function index() {
     }
   ) => {
     setVisibilityUpdate(false);
-    // showUpdateForm()
     if (!id) return;
     try {
       await fetch(`/api/players/${id}`, {
         method: "PATCH",
         body: JSON.stringify(playerData),
       }).then((resp) => {
-        if (resp.ok) getPlayers();
+        if (resp.ok) {getPlayers()};
       });
     } catch (err) {
       console.warn(err);
@@ -97,12 +97,12 @@ function index() {
     };
 
     updatePlayer(newPlayer);
+    setVisibility(true);
   }
 
   //DELETE PLAYER
 
   const deletePlayer = async (id) => {
-    console.log(id);
     if (!id) return;
     try {
       await fetch(`/api/players/${id}`, {
@@ -139,29 +139,20 @@ function index() {
     <>
       <div className="mx-auto w-5/6 flex flex-col">
         <Header headerText="Players" />
-        <button
-          className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded float-right m-5"
-          type="button"
-          onClick={() => {
-            showForm();
-          }}
-        >
-          Add player
-        </button>
 
         <div
           id="update-form"
           style={{ display: visibilityUpdate ? "block" : "none" }}
-          className="flex flex-col justify-center items-center mt-8 bg-grey-400 flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center mt-4"
         >
           <form
             action="/send-data-here"
             method="post"
-            className="w-full max-w-md border-2 p-5 m-auto mt-auto"
+            className="w-full m-auto mt-auto"
           >
-            <div className="md:flex md:items-center mb-6">
+            <div className="">
               <div className="md:w-1/3">
-                <label className="block text-gray-500 font-bold md:text-right px-6 py-3">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
                   First Name
                 </label>
               </div>
@@ -174,9 +165,9 @@ function index() {
                 />
               </div>
             </div>
-            <div className="md:flex md:items-center mb-6">
+            <div className="mt-4">
               <div className="md:w-1/3">
-                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
                   Last Name
                 </label>
               </div>
@@ -189,9 +180,9 @@ function index() {
                 />
               </div>
             </div>
-            <div className="md:flex md:items-center mb-6">
+            <div className="mt-4">
               <div className="md:w-1/3">
-                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
                   Email Address
                 </label>
               </div>
@@ -204,11 +195,10 @@ function index() {
                 />
               </div>
             </div>
-            <div className="md:flex md:items-center">
-              <div className="md:w-1/3"></div>
-              <div className="md:w-2/3">
+            <div className="md:flex">
+              <div className="mt-8">
                 <button
-                  className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                  className="mr-4 shadow bg-yellow-400 hover:bg-yellow-300 focus:shadow-outline focus:outline-none text-yellow-900 font-bold py-2 px-4 rounded"
                   type="button"
                   onClick={() => {
                     handleUpdate();
@@ -216,6 +206,15 @@ function index() {
                   }}
                 >
                   Update
+                </button>
+                <button
+                  className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-red-900 font-bold py-2 px-4 rounded"
+                  type="button"
+                  onClick={() => {
+                    showForm();
+                  }}
+                >
+                  Cancel
                 </button>
               </div>
             </div>
@@ -225,16 +224,16 @@ function index() {
         <div
           id="add-form"
           style={{ display: visibility ? "block" : "none" }}
-          className="bg-grey-400 flex flex-col h-screen justify-center items-center"
+          className="w-full flex flex-col mt-4 justify-center items-center"
         >
           <form
             action="/send-data-here"
             method="post"
-            className="w-full max-w-md border-2 p-5 m-auto mt-auto"
+            className="w-full m-auto mt-auto"
           >
-            <div className="md:flex md:items-center mb-6">
+            <div className="">
               <div className="md:w-1/3">
-                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
                   First Name
                 </label>
               </div>
@@ -247,9 +246,9 @@ function index() {
                 />
               </div>
             </div>
-            <div className="md:flex md:items-center mb-6">
+            <div className="mt-4">
               <div className="md:w-1/3">
-                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
                   Last Name
                 </label>
               </div>
@@ -262,9 +261,9 @@ function index() {
                 />
               </div>
             </div>
-            <div className="md:flex md:items-center mb-6">
+            <div className="mt-4">
               <div className="md:w-1/3">
-                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
                   Email Address
                 </label>
               </div>
@@ -277,11 +276,10 @@ function index() {
                 />
               </div>
             </div>
-            <div className="md:flex md:items-center">
-              <div className="md:w-1/3"></div>
-              <div className="md:w-2/3">
+            <div className="md:flex">
+              <div className="w-full mt-8">
                 <button
-                  className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                  className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-blue-900 font-bold py-2 px-4 rounded"
                   type="button"
                   onClick={() => {
                     addPlayer();
@@ -319,6 +317,7 @@ function index() {
                     <button
                       onClick={() => {
                         showUpdateForm();
+                        setId(player.id);
                       }}
                       className="bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-2 px-4 rounded"
                       type="button"
