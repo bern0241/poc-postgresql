@@ -23,10 +23,8 @@ const AddPlayerButton = ({ players }) => {
   async function getPlayersList() {
     try {
       // const resp = await fetch("http://localhost:3000/api/players2");
-      const resp = await fetch("https://churchpartytest.website/api/players2");
-      // const resp = await fetch("https://candid-dolphin-08c29e.netlify.app/api/players2");
+      const resp = await fetch("/api/players2");
       // const resp = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/players`);
-      // const resp = await fetch(`/api/players`);
       let data = await resp.json();
       console.log("PLAYER LIST:", data);
       setPlayerList(data);
@@ -50,10 +48,8 @@ const AddPlayerButton = ({ players }) => {
 
     try {
       // const resp = await fetch("http://localhost:3000/api/teams_players", {
-      const resp = await fetch("https://churchpartytest.website/api/teams_players", {
-      // const resp = await fetch("https://candid-dolphin-08c29e.netlify.app/api/teams_players", {
+      const resp = await fetch("/api/teams_players", {
       // const resp = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams_players`, {
-      // const resp = await fetch(`/api/teams_players`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

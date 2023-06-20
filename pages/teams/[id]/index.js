@@ -15,7 +15,7 @@ const TeamDetails = () => {
 
   useEffect(() => {
     if (!id) return;
-    const getTeamPlayers = async () => {
+    const getTeamAndPlayers = async () => {
       try {
         const resp = await fetch('/api/teams/' + id);
         const data = await resp.json();
@@ -26,7 +26,7 @@ const TeamDetails = () => {
             console.log('Error occured when fetching teams');
         }
     }
-    getTeamPlayers();
+    getTeamAndPlayers();
   }, [id]);
 
   function setDivisionString(division) {
@@ -59,7 +59,7 @@ const TeamDetails = () => {
 
   return (
     <>
-      <div className="mx-auto w-5/6 flex flex-col">
+      <div className="mx-auto w-5/6 flex flex-col h-[100vh]">
         <div className="flex flex-col items-center justify-center gap-6 relative">
           <Header headerText={team && team.teamname} />
           <TeamImage imagesrc={team && team.imagesrc} editable={false} />

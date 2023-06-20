@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTeams } from '@/context/teamsContext.js';
 import { useRouter } from 'next/navigation';
 
@@ -6,14 +6,27 @@ const EditTeam = ({team}) => {
 
     const router = useRouter();
     //states
-    const [teamName, setTeamName] = useState(team.teamname);
-    const [division, setDivision] = useState(team.division);
-    const [color, setColor] = useState(team.homecolor);
-    const [teamManager, setTeamManager] = useState(team.teammanager);
-    const [managerEmail, setManagerEmail] = useState(team.manageremail);
+    const [teamName, setTeamName] = useState();
+    const [division, setDivision] = useState();
+    const [color, setColor] = useState();
+    const [teamManager, setTeamManager] = useState();
+    const [managerEmail, setManagerEmail] = useState();
     const [errorMessage, setErrorMessage] = useState(false);
     // global teams context
-    const [teams, setTeams] = useTeams(team.manageremail);
+    const [teams, setTeams] = useTeams();
+
+    useEffect(() => {
+      if (team != undefined) {
+          console.log("WTF", team);
+          setTeamName(team.teamname);
+          setDivision(team.division);
+          setColor(team.homecolor);
+          setTeamManager(team.teammanager);
+          setManagerEmail(team.manageremail);
+          setTeams(team.manageremail)
+
+      }
+    }, [team])
 
     async function handleEdit(e) {
         e.preventDefault();
@@ -41,10 +54,8 @@ const EditTeam = ({team}) => {
 
             // console.log("NEW TEAM:", newTeam);
             // await fetch('http://localhost:3000/api/teams/' + team.id, {
-            await fetch('https://churchpartytest.website/api/teams/' + team.id, {
-            // await fetch('https://candid-dolphin-08c29e.netlify.app/api/teams/' + team.id, {
+            await fetch('/api/teams/' + team.id, {
             // await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams/` + team.id, {
-            // await fetch(`/api/teams/` + team.id, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
