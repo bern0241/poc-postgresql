@@ -25,6 +25,7 @@ const AddPlayerButton = ({ players }) => {
       // const resp = await fetch("http://localhost:3000/api/players2");
       // const resp = await fetch("https://candid-dolphin-08c29e.netlify.app/api/players2");
       const resp = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/players`);
+      // const resp = await fetch(`/api/players`);
       let data = await resp.json();
       console.log("PLAYER LIST:", data);
       setPlayerList(data);
@@ -50,6 +51,7 @@ const AddPlayerButton = ({ players }) => {
       // const resp = await fetch("http://localhost:3000/api/teams_players", {
       // const resp = await fetch("https://candid-dolphin-08c29e.netlify.app/api/teams_players", {
       const resp = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams_players`, {
+      // const resp = await fetch(`/api/teams_players`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +98,7 @@ const AddPlayerButton = ({ players }) => {
         {showDropdown && (
           <div
             id=""
-            className="z-[15] fixed translate-x-[-3.2rem] bg-white rounded-lg shadow w-60 dark:bg-gray-700"
+            className="z-[15] absolute translate-x-[-3.2rem] bg-white rounded-lg shadow w-60 dark:bg-gray-700"
           >
             <div className="p-3 z-[100]">
               <label for="input-group-search" className="sr-only">

@@ -84,6 +84,7 @@ export const getStaticPaths = async () => {
   // const res = await fetch("http://localhost:3000/api/teams");
   // const res = await fetch("https://candid-dolphin-08c29e.netlify.app/api/teams");
   const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams`);
+  // const res = await fetch(`/api/teams`);
   const data = await res.json();
 
   const paths = data.map((team) => {
@@ -103,6 +104,7 @@ export const getStaticProps = async (context) => {
   // const res = await fetch("http://localhost:3000/api/teams/" + id);
   // const res = await fetch("https://candid-dolphin-08c29e.netlify.app/api/teams/" + id);
   const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams/` + id);
+  // const res = await fetch(`/api/teams/` + id);
   const data = await res.json();
 
   return {
