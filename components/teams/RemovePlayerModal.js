@@ -13,9 +13,9 @@ const RemovePlayerModal = ({ setDeleteModal, player }) => {
     e.stopPropagation();
     try {
       await fetch(
-        // "http://localhost:3000/api/teams_players/" + player.player_id,
+        "http://localhost:3000/api/teams_players/" + player.player_id,
         // "https://candid-dolphin-08c29e.netlify.app/api/teams_players/" + player.player_id,
-        `${process.env.NEXT_PUBLIC_URL}/api/teams_players/` + player.player_id,
+        // `${process.env.NEXT_PUBLIC_URL}/api/teams_players/` + player.player_id,
         // `/api/teams_players/` + player.player_id,
         {
           method: "DELETE",

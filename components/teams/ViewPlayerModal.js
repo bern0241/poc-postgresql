@@ -13,8 +13,8 @@ const ViewPlayerModal = ({ setOpenPlayerModal, player }) => {
     try {
       const resp = await fetch(
         // "https://candid-dolphin-08c29e.netlify.app/api/players2/" + player.player_id
-        // "http://localhost:3000/api/players2/" + player.player_id
-        `${process.env.NEXT_PUBLIC_URL}/api/players2/` + player.player_id
+        "http://localhost:3000/api/players2/" + player.player_id
+        // `${process.env.NEXT_PUBLIC_URL}/api/players2/` + player.player_id
         // `/api/players2/` + player.player_id
       );
       const data = await resp.json();
