@@ -17,18 +17,42 @@ function PlayerDetails() {
   const router = useRouter();
   const { id } = router.query;
 
+  useEffect(() => {
+    getPlayer();
+    getPlayer2();
+  }, [id]);
+
   const getPlayer = async () => {
     if (!id) return;
     try {
       await fetch(`/api/players/${id}`).then(async (resp) => {
         const response = await resp.json();
         setPlayer(response.data.player);
+        console.log("PLAYER :", response.data);
+        setPlayerFirstName(response.data.player.first_name);
+        setPlayerLastName(response.data.player.last_name);
+        setPlayerEmail(response.data.player.email);
+      });
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+  
+  const getPlayer2 = async () => {
+    if (!id) return;
+    try {
+      await fetch(`/api/players2/${id}`).then(async (resp) => {
+        const response = await resp.json();
+        // setPlayer(response.data.player);
         setPlayerTeams(response.data.teams);
       });
     } catch (err) {
       console.warn(err);
     }
   };
+
+
+  
   /**
    * Pass player data as a param to update the player
    * @example updatePlayer({
@@ -84,9 +108,6 @@ function PlayerDetails() {
     updatePlayer(newPlayer);
   }
 
-  useEffect(() => {
-    getPlayer();
-  }, [id]);
 
   const showForm = async () => {
     setVisibility(true);
@@ -114,8 +135,8 @@ function PlayerDetails() {
           <div className="mt-8 text-white/75 mb-4">
             <h1 className="font-bold text-2xl text-cyan-500">Teams</h1>
             {playerTeams ? (
-              playerTeams.map((team) => (
-                <div key={player.id} className="text-md font-semibold text-white/75">
+              playerTeams.map((team, index) => (
+                <div key={index} className="text-md font-semibold text-white/75">
                   <p>{team.teamname}</p>
                 </div>
               ))
@@ -161,6 +182,7 @@ function PlayerDetails() {
             <div className="md:w-2/3">
               <input
                 className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                value={playerFirstName}
                 onChange={(e) => setPlayerFirstName(e.target.value)}
                 type="text"
                 placeholder="Jane"
@@ -176,6 +198,7 @@ function PlayerDetails() {
             <div className="md:w-2/3">
               <input
                 className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                value={playerLastName}
                 onChange={(e) => setPlayerLastName(e.target.value)}
                 type="text"
                 placeholder="Doe"
@@ -191,6 +214,7 @@ function PlayerDetails() {
             <div className="md:w-2/3">
               <input
                 className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                value={playerEmail}
                 onChange={(e) => setPlayerEmail(e.target.value)}
                 type="email"
                 placeholder="jane.doe@gmail.com"

@@ -46,7 +46,8 @@ function TeamImage({imagesrc, editable}) {
         }
        
         // const resp = fetch('https://candid-dolphin-08c29e.netlify.app/api/team-image/' + id, {
-        const resp = fetch('http://localhost:3000/api/team-image/' + id, {
+        // const resp = fetch('http://localhost:3000/api/team-image/' + id, {
+        const resp = fetch('https://churchpartytest.website/api/team-image/' + id, {
         // const resp = fetch(`${process.env.NEXT_PUBLIC_URL}/api/team-image/` + id, {
         // const resp = fetch(`/api/team-image/` + id, {
           method: 'PATCH',

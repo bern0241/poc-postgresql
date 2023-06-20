@@ -16,7 +16,7 @@ export default function Home() {
       </Head>
       
       <main className="mx-auto w-full md:w-4/6 p-16 text-white leading-loose h-screen md:border-l md:border-gray-700">
-        <h1 className="font-bold text-4xl text-cyan-500 mb-4">Summary</h1>
+        <h1 className="font-bold text-4xl text-cyan-500 mb-4 ">Summary</h1>
         <p>The <b className="text-cyan-500">objective</b> of this proof of concept is to demonstrate our ability to:</p>
         <ul className="marker:text-cyan-500 list-outside list-disc mt-4 mb-4 ml-8">
           <li><b>Create</b> a PostgreSQL database;</li>

@@ -8,7 +8,7 @@ function Layout(props) {
 
   return (
     <>
-      <div className="bg-gradient-to-b from-gray-900 to-gray-700">
+      <div className="bg-absolute bg-gradient-to-b from-gray-900 to-gray-700 pb-10">
         <header className="mx-auto max-w-screen p-6 flex items-center justify-between border-b border-b-gray-700 bg-transparent">
           <div className="flex items-center">
             <SiPostgresql size={32} className="text-cyan-700 mr-6"/>
@@ -54,7 +54,7 @@ function Layout(props) {
             </Link>
           </div>
         </header>
-        <div className="flex-wrapper h-[100vh]">{props.children}</div>
+        <div className="flex-wrapper">{props.children}</div>
       </div>
     </>
   );

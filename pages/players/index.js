@@ -125,10 +125,21 @@ function Players() {
     setMainVisibility(false);
     setVisibilityUpdate(false);
   };
-  const showUpdateForm = async () => {
+  const showUpdateForm = async (playerid) => {
     setVisibilityUpdate(true);
     setMainVisibility(false);
     setVisibility(false);
+
+    try {
+      await fetch(`/api/players/${playerid}`).then(async (resp) => {
+        const response = await resp.json();
+        setPlayerFirstName(response.data.player.first_name);
+        setPlayerLastName(response.data.player.last_name);
+        setPlayerEmail(response.data.player.email);
+      });
+    } catch (err) {
+      console.warn(err);
+    }
   };
 
   const handlePlayerSelected = (id) => {
@@ -159,6 +170,7 @@ function Players() {
               <div className="md:w-2/3">
                 <input
                   className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500"
+                  value={playerFirstName}
                   onChange={(e) => setPlayerFirstName(e.target.value)}
                   type="text"
                   placeholder="Jane"
@@ -174,6 +186,7 @@ function Players() {
               <div className="md:w-2/3">
                 <input
                   className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500"
+                  value={playerLastName}
                   onChange={(e) => setPlayerLastName(e.target.value)}
                   type="text"
                   placeholder="Doe"
@@ -189,6 +202,7 @@ function Players() {
               <div className="md:w-2/3">
                 <input
                   className="appearance-none block w-full bg-gray-900 text-white/75 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-500"
+                  value={playerEmail}
                   onChange={(e) => setPlayerEmail(e.target.value)}
                   type="email"
                   placeholder="jane.doe@gmail.com"
@@ -305,9 +319,11 @@ function Players() {
             <tbody>
               {players.map((player) => (
                 <tr
+                  className="cursor-pointer"
+                  onClick={() => handlePlayerSelected(player.id)}
                   key={player.id}
                 >
-                  <td onClick={() => handlePlayerSelected(player.id)} className="hover:cursor-pointer text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
+                  <td className="hover:cursor-pointer text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
                     {player.first_name} {player.last_name}
                   </td>
                   <td className="text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
@@ -315,8 +331,9 @@ function Players() {
                   </td>
                   <td className="text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
                     <button
-                      onClick={() => {
-                        showUpdateForm();
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        showUpdateForm(player.id);
                         setId(player.id);
                       }}
                       className="bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-2 px-4 rounded"
@@ -327,7 +344,8 @@ function Players() {
                   </td>
                   <td className="text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
                     <button
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         deletePlayer(player.id);
                       }}
                       className="bg-red-500 hover:bg-red-400 text-red-900 font-bold py-2 px-4 rounded"

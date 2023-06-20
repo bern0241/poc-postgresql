@@ -7,7 +7,7 @@ import TeamsList from "@/components/teams/TeamsList.js";
 const Teams = () => {
   return (
     <>
-      <div className="mx-auto w-5/6 flex flex-col">
+      <div className="mx-auto w-5/6 flex flex-col h-[100vh]">
         <Header headerText="Teams" />
         <AddTeam />
         <TeamsList />
@@ -16,16 +16,17 @@ const Teams = () => {
   );
 };
 
-export const getStaticProps = async () => {
-  const resp = await fetch("http://localhost:3000/api/teams");
-  // const resp = await fetch("https://candid-dolphin-08c29e.netlify.app/api/teams");
-  // const resp = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams`);
-  // const resp = await fetch('/pages/api/teams');
-  let data = await resp.json();
+// export const getStaticProps = async () => {
+//   // const resp = await fetch("http://localhost:3000/api/teams");
+//   const resp = await fetch("/api/teams");
+//   // const resp = await fetch("https://candid-dolphin-08c29e.netlify.app/api/teams");
+//   // const resp = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams`);
+//   // const resp = await fetch('/pages/api/teams');
+//   let data = await resp.json();
 
-  return {
-    props: { teams: data },
-  };
-};
+//   return {
+//     props: { teams: data },
+//   };
+// };
 
 export default Teams;
