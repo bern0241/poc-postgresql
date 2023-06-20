@@ -12,7 +12,8 @@ const ViewPlayerModal = ({ setOpenPlayerModal, player }) => {
   const getPlayerTeams = async () => {
     try {
       const resp = await fetch(
-        "http://localhost:3000/api/players2/" + player.player_id
+        // "http://localhost:3000/api/players2/" + player.player_id
+        `${process.env.NEXT_PUBLIC_URL}/api/players2/` + player.player_id
       );
       const data = await resp.json();
       await setPlayerTeams(data.data.teams);

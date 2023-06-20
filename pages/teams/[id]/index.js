@@ -81,7 +81,8 @@ const TeamDetails = ({ team, players }) => {
 };
 
 export const getStaticPaths = async () => {
-  const res = await fetch("http://localhost:3000/api/teams");
+  // const res = await fetch("http://localhost:3000/api/teams");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams`);
   const data = await res.json();
 
   const paths = data.map((team) => {
@@ -98,7 +99,8 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const id = context.params.id;
-  const res = await fetch("http://localhost:3000/api/teams/" + id);
+  // const res = await fetch("http://localhost:3000/api/teams/" + id);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams/` + id);
   const data = await res.json();
 
   return {

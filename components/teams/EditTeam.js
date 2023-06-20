@@ -40,7 +40,8 @@ const EditTeam = ({team}) => {
             }
 
             // console.log("NEW TEAM:", newTeam);
-            await fetch('http://localhost:3000/api/teams/' + team.id, {
+            // await fetch('http://localhost:3000/api/teams/' + team.id, {
+            await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams/` + team.id, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'

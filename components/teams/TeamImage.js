@@ -45,7 +45,8 @@ function TeamImage({imagesrc, editable}) {
           console.error(error);
         }
        
-        const resp = fetch('http://localhost:3000/api/team-image/' + id, {
+        // const resp = fetch('http://localhost:3000/api/team-image/' + id, {
+        const resp = fetch(`${process.env.NEXT_PUBLIC_URL}/api/team-image/` + id, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
