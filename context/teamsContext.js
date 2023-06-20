@@ -9,8 +9,10 @@ function TeamsContextProvider(props) {
         (async () => {
             try {
                 // const resp = await fetch('http://localhost:3000/api/teams');
-                const resp = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams`);
+                const resp = await fetch('https://candid-dolphin-08c29e.netlify.app/api/teams');
+                // const resp = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/teams`);
                 const data = await resp.json();
+                setTeams(data);
                 setTeams(data);
             } catch (err) {
                 console.log('Error occured when fetching teams');
