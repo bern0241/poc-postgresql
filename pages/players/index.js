@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Header from "@/components/teams/Header";
+import DeletePlayerModal from "@/components/players/DeletePlayerModal";
 
 function Players() {
   const [players, setPlayers] = useState([]);
@@ -9,7 +10,9 @@ function Players() {
   const [deleteVisibility, setDeleteVisibility] = useState(false);
   const [mainVisibility, setMainVisibility] = useState(false);
   const [visibilityUpdate, setVisibilityUpdate] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
+  const [playerToDelete, setPlayerToDelete] = useState();
   const [playerFirstName, setPlayerFirstName] = useState("");
   const [playerLastName, setPlayerLastName] = useState("");
   const [playerEmail, setPlayerEmail] = useState("");
@@ -49,7 +52,10 @@ function Players() {
       email: emailRef.current.value,
     }
   ) => {
-    console.log(playerData);
+    // console.log(playerData);
+    if (playerData.first_name === '' || playerData.last_name === '' || playerData.email === '') {
+      return;
+    }
     try {
       await fetch(`api/players`, {
         method: "POST",
@@ -57,7 +63,12 @@ function Players() {
       })
         .then((resp) => {
           console.log(resp);
-          if (resp.ok) getPlayers();
+          if (resp.ok) {
+            firstNameRef.current.value = '';
+            lastNameRef.current.value = '';
+            emailRef.current.value = '';
+            getPlayers();
+          };
         })
         .catch((err) => console.log(err));
     } catch (err) {
@@ -102,19 +113,19 @@ function Players() {
 
   //DELETE PLAYER
 
-  const deletePlayer = async (id) => {
-    if (!id) return;
-    try {
-      await fetch(`/api/players/${id}`, {
-        method: "DELETE",
-      }).then(async (resp) => {
-        router.push("/players");
-        getPlayers();
-      });
-    } catch (err) {
-      console.warn(err);
-    }
-  };
+  // const deletePlayer = async (id) => {
+  //   if (!id) return;
+  //   try {
+  //     await fetch(`/api/players/${id}`, {
+  //       method: "DELETE",
+  //     }).then(async (resp) => {
+  //       router.push("/players");
+  //       getPlayers();
+  //     });
+  //   } catch (err) {
+  //     console.warn(err);
+  //   }
+  // };
 
   useEffect(() => {
     getPlayers();
@@ -129,6 +140,10 @@ function Players() {
     setVisibilityUpdate(true);
     setMainVisibility(false);
     setVisibility(false);
+    
+    firstNameRef.current.value = '';
+    lastNameRef.current.value = '';
+    emailRef.current.value = '';
 
     try {
       await fetch(`/api/players/${playerid}`).then(async (resp) => {
@@ -346,7 +361,9 @@ function Players() {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        deletePlayer(player.id);
+                        setDeleteModal(true);
+                        setPlayerToDelete(player);
+                        // deletePlayer(player.id);
                       }}
                       className="bg-red-500 hover:bg-red-400 text-red-900 font-bold py-2 px-4 rounded"
                       type="button"
@@ -379,7 +396,7 @@ function Players() {
               Cancel
             </button>
             <button
-              onClick={deletePlayer}
+              // onClick={deletePlayer}
               className="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded m-5"
               type="button"
             >
@@ -388,6 +405,9 @@ function Players() {
           </div>
         </div>
       </div>
+      {deleteModal &&
+        <DeletePlayerModal player={playerToDelete} setDeleteModal={setDeleteModal} />
+      }
     </>
   );
 }

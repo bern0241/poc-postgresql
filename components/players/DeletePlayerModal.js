@@ -1,42 +1,53 @@
 import React, { useEffect } from "react";
 import { useTeams } from "@/context/teamsContext";
 import Image from "next/image";
+import { useRouter } from 'next/router';
 
-const DeletePlayerModal = ({ setDeleteModal, team }) => {
-  useEffect(() => {
-    console.log("team:", team);
-  }, []);
-
-  const [teams, setTeams] = useTeams();
+const DeletePlayerModal = ({ setDeleteModal, player }) => {
+  const router = useRouter();
+  // const [teams, setTeams] = useTeams();
 
   const handleCloseModal = (e) => {
     setDeleteModal(false);
   };
 
-  const deleteItem = async () => {
+  const deletePlayer = async () => {
     try {
-      await fetch("api/teams/" + team.id, {
+      await fetch(`/api/players/${player.id}`, {
         method: "DELETE",
-      })
-        .then((result) => {
-          setTeams(teams.filter((team) => team.id !== id));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.error(error.message);
+      }).then(async (resp) => {
+        setDeleteModal(false);
+        router.reload();
+      });
+    } catch (err) {
+      console.warn(err);
     }
-
-    setDeleteModal(false);
   };
+
+  // const deleteItem = async () => {
+  //   try {
+  //     await fetch("api/teams/" + team.id, {
+  //       method: "DELETE",
+  //     })
+  //       .then((result) => {
+  //         setTeams(teams.filter((team) => team.id !== id));
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   } catch (error) {
+  //     console.error(error.message);
+  //   }
+
+  //   setDeleteModal(false);
+  // };
 
   return (
     <>
       <div
         id="popup-modal"
         tabindex="-1"
-        className="z-[20] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        className="z-[20] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       >
         <div className="z-[20] relative w-full h-full max-w-md md:h-auto">
           <div className="relative bg-gray-900 rounded-lg shadow p-6 border border-gray-700">
@@ -62,32 +73,14 @@ const DeletePlayerModal = ({ setDeleteModal, team }) => {
               <span className="sr-only">Close Modal</span>
             </button>
             <div className="p-6 text-center">
-              {team.imagesrc ? (
-                // <Image className='mx-auto flex justify-center' src={team.imagesrc} width={100} height={100}/>
-                <img
-                  className="mx-auto flex justify-center mb-8 rounded-md"
-                  layout="fill"
-                  objectFit="cover"
-                  src={team.imagesrc}
-                  width={100}
-                  height={100}
-                />
-              ) : (
-                <Image
-                  className="mx-auto flex justify-center rounded-md mb-8"
-                  src="/../public/images/neutral-shirt.jpg"
-                  width={100}
-                  height={100}
-                />
-              )}
               {/* <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> */}
               <h3 className="mb-4 text-lg font-normal text-white/75 dark:text-gray-400">
-                Are you sure you want to delete this team?
+                Are you sure you want to delete this player?
                 <br />
               </h3>
-              <p className="text-[2rem] font-semibold relative bottom-4 text-white">{team.teamname}</p>
+              <p className="text-[2rem] font-semibold relative bottom-4 text-white">{player.first_name} {player.last_name}</p>
               <button
-                onClick={(e) => deleteItem()}
+                onClick={(e) => deletePlayer()}
                 data-modal-hide="popup-modal"
                 type="button"
                 className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
