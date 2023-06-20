@@ -54,7 +54,7 @@ function Layout(props) {
             </Link>
           </div>
         </header>
-        <div className="flex-wrapper h-screen">{props.children}</div>
+        <div className="flex-wrapper  h-[100vh]">{props.children}</div>
       </div>
     </>
   );
