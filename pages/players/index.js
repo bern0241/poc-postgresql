@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Header from "@/components/teams/Header";
 
-function index() {
+function Players() {
   const [players, setPlayers] = useState([]);
   const [visibility, setVisibility] = useState(true);
   const [deleteVisibility, setDeleteVisibility] = useState(false);
@@ -374,4 +374,4 @@ function index() {
   );
 }
 
-export default index;
+export default Players;

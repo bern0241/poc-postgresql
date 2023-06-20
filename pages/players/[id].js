@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Header from "@/components/teams/Header";
 
-function index() {
+function PlayerDetails() {
   const [player, setPlayer] = useState({});
   const [playerTeams, setPlayerTeams] = useState([]);
 
@@ -257,4 +257,4 @@ function index() {
   );
 }
 
-export default index;
+export default PlayerDetails;

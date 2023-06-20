@@ -95,8 +95,8 @@ const ViewPlayerModal = ({ setOpenPlayerModal, player }) => {
 
                 <div className="text-[1.1rem] flex justify-center items-center flex-wrap gap-5 border border-gray-700 p-5">
                   {playerTeams &&
-                    playerTeams.map((team) => (
-                      <div
+                    playerTeams.map((team, index) => (
+                      <div key={index}
                         onClick={(e) => redirectToTeamPage(e, team)}
                         className="cursor-pointer flex flex-col"
                       >
