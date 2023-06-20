@@ -79,7 +79,7 @@ const DeletePlayerModal = ({ setDeleteModal, player }) => {
                 <br />
               </h3>
               <p className="text-[2rem] font-semibold relative bottom-4 text-white">{player.first_name} {player.last_name}</p>
-              <button
+              <button disabled
                 onClick={(e) => deletePlayer()}
                 data-modal-hide="popup-modal"
                 type="button"

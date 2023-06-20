@@ -226,7 +226,7 @@ function Players() {
             </div>
             <div className="md:flex">
               <div className="mt-8">
-                <button
+                <button disabled
                   className="mr-4 shadow bg-yellow-400 hover:bg-yellow-300 focus:shadow-outline focus:outline-none text-yellow-900 font-bold py-2 px-4 rounded"
                   type="button"
                   onClick={() => {
@@ -307,7 +307,7 @@ function Players() {
             </div>
             <div className="md:flex">
               <div className="w-full mt-8">
-                <button
+                <button disabled
                   className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-blue-900 font-bold py-2 px-4 rounded"
                   type="button"
                   onClick={() => {
@@ -345,7 +345,7 @@ function Players() {
                     {player.email}
                   </td>
                   <td className="text-md border-b border-gray-600 bg-gray-800 px-6 py-4">
-                    <button
+                    <button 
                       onClick={(e) => {
                         e.stopPropagation();
                         showUpdateForm(player.id);

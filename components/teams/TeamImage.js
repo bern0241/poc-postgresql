@@ -66,7 +66,7 @@ function TeamImage({imagesrc, editable}) {
   if (editable) {
     return (
       <div className='group overflow-hidden rounded-lg'>
-          <input className='hidden' id='file' type="file" multiple accept={"image/*"} 
+          <input disabled className='hidden' id='file' type="file" multiple accept={"image/*"} 
             onChange={(e) => setImage(e.target.files[0])}/>
               <label for='file'>
               <img 

@@ -133,7 +133,7 @@ const EditTeam = ({team}) => {
     </div>
 
     <div className="flex justify-end ">
-    <button onClick={(e) => handleEdit(e)} className="bg-yellow-500 hover:bg-yellow-400 h-11 mt-[24px] w-[12rem] text-yellow-900 font-bold rounded">
+    <button disabled onClick={(e) => handleEdit(e)} className="bg-yellow-500 hover:bg-yellow-400 h-11 mt-[24px] w-[12rem] text-yellow-900 font-bold rounded">
     Edit Team
     </button>
     </div>

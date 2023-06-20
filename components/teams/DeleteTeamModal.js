@@ -86,7 +86,7 @@ const DeleteTeamModal = ({ setDeleteModal, team }) => {
                 <br />
               </h3>
               <p className="text-[2rem] font-semibold relative bottom-4 text-white">{team.teamname}</p>
-              <button
+              <button disabled
                 onClick={(e) => deleteItem()}
                 data-modal-hide="popup-modal"
                 type="button"

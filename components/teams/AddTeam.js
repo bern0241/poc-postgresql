@@ -119,7 +119,7 @@ const AddTeam = () => {
     </div>
 
     <div className="flex justify-end ">
-    <button onClick={(e) => handlePost(e)} className="bg-blue-500 hover:bg-blue-400 h-11 mt-[24px] w-[12rem] text-blue-900 font-bold rounded">
+    <button disabled onClick={(e) => handlePost(e)} className="bg-blue-500 hover:bg-blue-400 h-11 mt-[24px] w-[12rem] text-blue-900 font-bold rounded">
     Add Team
     </button>
     </div>

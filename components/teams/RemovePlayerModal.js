@@ -40,7 +40,7 @@ const RemovePlayerModal = ({ setDeleteModal, player }) => {
       <div
         id="popup-modal"
         tabindex="-1"
-        className="z-[20] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        className="z-[20] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       >
         <div className="z-[20] relative w-full h-full max-w-md md:h-auto">
           <div className="relative bg-gray-900 rounded-lg shadow p-6 border border-gray-700">
@@ -89,7 +89,7 @@ const RemovePlayerModal = ({ setDeleteModal, player }) => {
               <p className="text-[2rem] font-semibold relative bottom-4 text-white">
                 {player.first_name} {player.last_name}
               </p>
-              <button
+              <button disabled
                 onClick={(e) => deleteItem(e)}
                 data-modal-hide="popup-modal"
                 type="button"

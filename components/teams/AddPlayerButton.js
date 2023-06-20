@@ -38,6 +38,8 @@ const AddPlayerButton = ({ players }) => {
   };
 
   const addPlayerToTeam = async (e, player) => {
+    return;
+    
     setShowDropdown(false);
 
     const newTeamMember = {
